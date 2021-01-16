@@ -41,15 +41,11 @@ class UserPreview extends Component{
     componentDidMount(){
         this.getUsagers();
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        this.getUsagers();
-    }
 
     getUsagers = () => {
         const neo4j = require('neo4j-driver')
 
         const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
-// const session = driver.session()
         const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:Usager)-[r]->(m) return distinct n as usager`;
 
