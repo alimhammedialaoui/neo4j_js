@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Api from "../api/call"
+import FormUser from "../component/FormUser";
 class Home extends Component {
 
     constructor(props) {
@@ -19,7 +20,7 @@ class Home extends Component {
         return (
             <div>
                 <p>Test</p>
-                <button onClick={this.callApi} >Click</button><br/>
+                <FormUser/>
                 <button onClick={this.getApi} >Get usagers</button>
             </div>
         );
