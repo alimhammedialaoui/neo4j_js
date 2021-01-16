@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Api from "../api/call"
+import FormMoyenDeTransport from "./FormMoyenDeTransport";
 
 class MoyenDeTransport extends Component {
     constructor(props) {
@@ -20,6 +21,8 @@ class MoyenDeTransport extends Component {
             <div>
                <h3>Adnane M'barki is the best</h3><hr/>
                 <button className="btn btn-outline-info">Add Transport</button>
+                <hr/>
+                {!formtransportHidden && <FormMoyenDeTransport/>}
             </div>
         );
     }

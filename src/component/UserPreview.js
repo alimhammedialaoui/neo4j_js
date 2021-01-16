@@ -10,7 +10,6 @@ class UserPreview extends Component{
         showAddForm: false,
         showPrefForm: false,
         showUpdForm: false,
-        component1:<button onClick={this.showAddForm}>Add usager</button>
     }
     render() {
         return(
@@ -30,19 +29,23 @@ class UserPreview extends Component{
                         return (<tr>
                             <td className="align-middle">{usager.properties.nomComplet}</td>
                             <td className="align-middle">{usager.properties.handicap}</td>
-                            {/*<td className="align-middle">{usager.properties.dateDeNaissance.day}/{usager.properties.dateDeNaissance.month}/{usager.properties.dateDeNaissance.year}</td>*/}
+                            <td className="align-middle">{usager.properties.dateDeNaissance}</td>
                             <td className="align-middle">{usager.properties.fonction}</td>
-                            <td className="align-middle"></td>
                             <td>
                                 <button className="btn btn-info">Update information</button>
                                 |
-                                <button className="btn btn-info">Add transport preference</button>
+                                <button className="btn btn-info" onClick={()=> {
+                                    this.setState({
+                                        showPrefForm: true
+                                    })
+                                    this.showPreferenceTrans(usager.properties.nomComplet)
+                                }}>Add transport preference</button>
                             </td>
                         </tr>)
                     })}
                     </tbody>
                 </table>
-                <AddPreferenceTransport/>
+                {this.showPreferenceTrans && this.showPreferenceTrans}
                 {/*<FormMoyenDeTransport/>*/}
             </div>
         )
@@ -52,12 +55,6 @@ class UserPreview extends Component{
         this.getUsagers();
     }
 
-    showAddForm=()=>{
-        this.setState({
-            showAddForm:true,
-            component1:<FormUser/>
-        })
-    }
 
     showPreferenceTrans=(nom)=>{
         return (
@@ -67,7 +64,7 @@ class UserPreview extends Component{
 
     getUsagers = () => {
         const neo4j = require('neo4j-driver')
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "0000"))
+        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
         const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:Usager)-[r]->(m) return distinct n as usager`;
         session.run(query)

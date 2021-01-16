@@ -16,8 +16,7 @@ function Usager() {
             <UserPreview/>
             <hr/>
             {!formusagerHidden && <FormUser/>}
-            <hr/>
-            {!formtransportHidden && <FormMoyenDeTransport/>}
+
         </div>
     );
 }
