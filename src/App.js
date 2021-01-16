@@ -1,12 +1,15 @@
 import './App.css';
-import usager from './component/Usager'
-import moyenDeTransport from './component/MoyenDeTransport'
+//import MoyenDeTransport from './component/MoyenDeTransport';
+import Usager from "./component/Usager";
+// import Home from "./screens/Home";
+
 function App() {
   return (
     <div className="container">
         <h3>Neo4j App</h3><hr/>
-        <usager/>
-        <moyenDeTransport/>
+        <Usager/>
+        {/*<MoyenDeTransport/>*/}
+        {/*<Home/>*/}
     </div>
   );
 }
