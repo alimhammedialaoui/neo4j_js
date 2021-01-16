@@ -1,6 +1,6 @@
 const neo4j = require('neo4j-driver')
 
-const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
+const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
 // const session = driver.session()
 const session = driver.session({database: "neo4j"});
 const personName = 'Adnane'
