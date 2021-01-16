@@ -8,7 +8,7 @@ function App() {
         <h3>Neo4j App</h3><hr/>
         <Usager/>
     </div>
-  );
-}
+    )
+  }
 
 export default App;
