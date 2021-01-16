@@ -1,0 +1,182 @@
+Index: src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import './App.css';\r\nimport usager from './component/Usager'\r\nimport moyenDeTransport from './component/MoyenDeTransport'\r\nfunction App() {\r\n  return (\r\n    <div className=\"container\">\r\n        <h3>Neo4j App</h3><hr/>\r\n        <usager/>\r\n        <moyenDeTransport/>\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default App;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/App.js b/src/App.js
+--- a/src/App.js	
++++ b/src/App.js	
+@@ -1,12 +1,12 @@
+ import './App.css';
+ import usager from './component/Usager'
+ import moyenDeTransport from './component/MoyenDeTransport'
++import Home from "./screens/Home";
+ function App() {
+   return (
+     <div className="container">
+         <h3>Neo4j App</h3><hr/>
+-        <usager/>
+-        <moyenDeTransport/>
++        <Home/>
+     </div>
+   );
+ }
+Index: src/api/call.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const neo4j = require('neo4j-driver')\r\n\r\nconst driver = neo4j.driver(\"neo4j://localhost:7687\", neo4j.auth.basic(\"neo4j\", \"1923\"))\r\n// const session = driver.session()\r\nconst session = driver.session({database: \"neo4j\"});\r\nconst personName = 'Adnane'\r\n\r\nclass Api {\r\n    addUser = async (usager) => {\r\n        try {\r\n            const result = await session.run(\r\n                'CREATE (a:Usager {age: $age,handicap: $handicap,fonction: $fonction}) RETURN a',\r\n                {\r\n                    age: usager.age,\r\n                    handicap: usager.handicap,\r\n                    fonction: usager.fonction\r\n                }\r\n            )\r\n\r\n            const singleRecord = result.records[0]\r\n            const node = singleRecord.get(0)\r\n\r\n            console.log(node.properties.name)\r\n        } finally {\r\n            await session.close()\r\n        }\r\n\r\n// on application exit:\r\n        await driver.close()\r\n    }\r\n\r\n    getUsagers = () => {\r\n        console.log(\"Get\")\r\n        // const neo4j = require('neo4j-driver');\r\n        // const driver = neo4j.driver('bolt://localhost:7687',\r\n        //     neo4j.auth.basic('neo4j', 'Oussama2'),\r\n        //     {/* encrypted: 'ENCRYPTION_OFF' */});\r\n\r\n        const query = `MATCH (n:Usager)-[r]->(m) return distinct n.nomComplet as usager`;\r\n\r\n        // const params = {\"category\": \"Dairy Products\"};\r\n\r\n        // const session = driver.session({database:\"neo4j\"});\r\n\r\n        session.run(query)\r\n            .then((result) => {\r\n                result.records.forEach((record) => {\r\n                    console.log(record.get('usager'));\r\n                });\r\n                session.close();\r\n                driver.close();\r\n            })\r\n            .catch((error) => {\r\n                console.error(error);\r\n            });\r\n\r\n    }\r\n\r\n}\r\n\r\nexport default new Api();\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/api/call.js b/src/api/call.js
+--- a/src/api/call.js	
++++ b/src/api/call.js	
+@@ -29,6 +29,33 @@
+         await driver.close()
+     }
+ 
++
++    addMoyenDeTransport = async (moyenDeTransport) => {
++        try {
++            const result = await session.run(
++                'CREATE (a:MoyenDeTransport {type: $type,numero: $numero,constructeur: $constructeur, anneemiseenservice: $anneemiseenservice}) RETURN a',
++                {
++                    type: moyenDeTransport.type,
++                    numero: moyenDeTransport.numero,
++                    constructeur: moyenDeTransport.constructeur,
++                    anneemiseenservice: moyenDeTransport.anneemiseenservice
++
++                }
++            )
++
++            const singleRecord = result.records[0]
++            const node = singleRecord.get(0)
++
++            console.log(node.properties.name)
++        } finally {
++            await session.close()
++        }
++
++// on application exit:
++        await driver.close()
++    }
++
++
+     getUsagers = () => {
+         console.log("Get")
+         // const neo4j = require('neo4j-driver');
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"f3a3a227-6d6c-4139-aebe-94ba1dc60302\" name=\"Default Changelist\" comment=\"commit\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1n9pYxsFzjXcGTQMl80Lkm78WAd\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"dart.analysis.tool.window.visible\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$USER_HOME$/Desktop/Projet Diouri\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.standard\" value=\"true\" />\r\n    <property name=\"node.js.path.for.package.eslint\" value=\"project\" />\r\n    <property name=\"node.js.path.for.package.standard\" value=\"project\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.standard\" value=\"\" />\r\n    <property name=\"nodejs_interpreter_path\" value=\"node\" />\r\n    <property name=\"nodejs_interpreter_path.stuck_in_default_project\" value=\"undefined stuck path\" />\r\n    <property name=\"nodejs_npm_path_reset_for_default_project\" value=\"true\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"CodeWithMe\" />\r\n    <property name=\"ts.external.directory.path\" value=\"C:\\Program Files\\JetBrains\\WebStorm 2020.2.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external\" />\r\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"npm.npm start\">\r\n    <configuration name=\"Debug Application\" type=\"JavascriptDebugType\" uri=\"http://localhost:3000\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"npm start\" type=\"js.build_tools.npm\">\r\n      <package-json value=\"$PROJECT_DIR$/package.json\" />\r\n      <command value=\"run\" />\r\n      <scripts>\r\n        <script value=\"start\" />\r\n      </scripts>\r\n      <node-interpreter value=\"project\" />\r\n      <envs />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"f3a3a227-6d6c-4139-aebe-94ba1dc60302\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1610812211503</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1610812211503</updated>\r\n      <workItem from=\"1610812212797\" duration=\"1761000\" />\r\n      <workItem from=\"1610816677641\" duration=\"1822000\" />\r\n      <workItem from=\"1610819378715\" duration=\"270000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"commit\">\r\n      <created>1610820877750</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1610820877750</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"commit\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"commit\" />\r\n  </component>\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -1,11 +1,24 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="f3a3a227-6d6c-4139-aebe-94ba1dc60302" name="Default Changelist" comment="commit" />
++    <list default="true" id="f3a3a227-6d6c-4139-aebe-94ba1dc60302" name="Default Changelist" comment="commit">
++      <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/api/call.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/call.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Home.js" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="FileTemplateManagerImpl">
++    <option name="RECENT_TEMPLATES">
++      <list>
++        <option value="JavaScript File" />
++      </list>
++    </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -24,10 +37,13 @@
+     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Projet Diouri" />
+     <property name="node.js.detected.package.eslint" value="true" />
+     <property name="node.js.detected.package.standard" value="true" />
++    <property name="node.js.detected.package.tslint" value="true" />
+     <property name="node.js.path.for.package.eslint" value="project" />
+     <property name="node.js.path.for.package.standard" value="project" />
++    <property name="node.js.path.for.package.tslint" value="project" />
+     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+     <property name="node.js.selected.package.standard" value="" />
++    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+     <property name="nodejs_interpreter_path" value="node" />
+     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+@@ -37,6 +53,17 @@
+     <property name="vue.rearranger.settings.migration" value="true" />
+   </component>
+   <component name="RunManager" selected="npm.npm start">
++    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
++      <option name="arquillianRunConfiguration">
++        <value>
++          <option name="containerStateName" value="" />
++        </value>
++      </option>
++      <option name="TEST_OBJECT" value="class" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
+       <method v="2" />
+     </configuration>
+@@ -70,7 +97,21 @@
+       <option name="project" value="LOCAL" />
+       <updated>1610820877750</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL-00002" summary="commit">
++      <created>1610822882886</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1610822882886</updated>
++    </task>
++    <task id="LOCAL-00003" summary="commit">
++      <created>1610822967378</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1610822967378</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -92,4 +133,4 @@
+     <MESSAGE value="commit" />
+     <option name="LAST_COMMIT_MESSAGE" value="commit" />
+   </component>
+-</project>
++</project>
+\ No newline at end of file
+Index: .eslintcache
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[{\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\index.js\":\"1\",\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\App.js\":\"2\",\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\reportWebVitals.js\":\"3\",\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\screens\\\\Home.js\":\"4\",\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\api\\\\call.js\":\"5\",\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\component\\\\FormUser.js\":\"6\"},{\"size\":500,\"mtime\":499162500000,\"results\":\"7\",\"hashOfConfig\":\"8\"},{\"size\":216,\"mtime\":1610822930647,\"results\":\"9\",\"hashOfConfig\":\"8\"},{\"size\":362,\"mtime\":499162500000,\"results\":\"10\",\"hashOfConfig\":\"8\"},{\"size\":557,\"mtime\":1610824492805,\"results\":\"11\",\"hashOfConfig\":\"8\"},{\"size\":1840,\"mtime\":1610824203751,\"results\":\"12\",\"hashOfConfig\":\"8\"},{\"size\":2878,\"mtime\":1610825675554,\"results\":\"13\",\"hashOfConfig\":\"8\"},{\"filePath\":\"14\",\"messages\":\"15\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"usedDeprecatedRules\":\"16\"},\"aavcbd\",{\"filePath\":\"17\",\"messages\":\"18\",\"errorCount\":0,\"warningCount\":1,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"source\":\"19\",\"usedDeprecatedRules\":\"16\"},{\"filePath\":\"20\",\"messages\":\"21\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"usedDeprecatedRules\":\"16\"},{\"filePath\":\"22\",\"messages\":\"23\",\"errorCount\":0,\"warningCount\":1,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"source\":null},{\"filePath\":\"24\",\"messages\":\"25\",\"errorCount\":0,\"warningCount\":1,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"source\":null},{\"filePath\":\"26\",\"messages\":\"27\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\index.js\",[],[\"28\",\"29\"],\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\App.js\",[\"30\"],\"import logo from './logo.svg';\\nimport './App.css';\\nimport Home from \\\"./screens/Home\\\";\\n\\nfunction App() {\\n  return (\\n    <div className=\\\"App\\\">\\n      <Home/>\\n    </div>\\n  );\\n}\\n\\nexport default App;\\n\",\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\reportWebVitals.js\",[],\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\screens\\\\Home.js\",[\"31\"],\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\api\\\\call.js\",[\"32\"],\"C:\\\\Users\\\\alima\\\\Documents\\\\React Js projects\\\\neo4j_js\\\\src\\\\component\\\\FormUser.js\",[],{\"ruleId\":\"33\",\"replacedBy\":\"34\"},{\"ruleId\":\"35\",\"replacedBy\":\"36\"},{\"ruleId\":\"37\",\"severity\":1,\"message\":\"38\",\"line\":1,\"column\":8,\"nodeType\":\"39\",\"messageId\":\"40\",\"endLine\":1,\"endColumn\":12},{\"ruleId\":\"41\",\"severity\":1,\"message\":\"42\",\"line\":6,\"column\":5,\"nodeType\":\"43\",\"messageId\":\"44\",\"endLine\":8,\"endColumn\":6},{\"ruleId\":\"37\",\"severity\":1,\"message\":\"45\",\"line\":6,\"column\":7,\"nodeType\":\"39\",\"messageId\":\"40\",\"endLine\":6,\"endColumn\":17},\"no-native-reassign\",[\"46\"],\"no-negated-in-lhs\",[\"47\"],\"no-unused-vars\",\"'logo' is defined but never used.\",\"Identifier\",\"unusedVar\",\"no-useless-constructor\",\"Useless constructor.\",\"MethodDefinition\",\"noUselessConstructor\",\"'personName' is assigned a value but never used.\",\"no-global-assign\",\"no-unsafe-negation\"]
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.eslintcache b/.eslintcache
+--- a/.eslintcache	
++++ b/.eslintcache	
+@@ -1,1 +1,1 @@
+-[{"C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\index.js":"1","C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\App.js":"2","C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\reportWebVitals.js":"3","C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\screens\\Home.js":"4","C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\api\\call.js":"5","C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\component\\FormUser.js":"6"},{"size":500,"mtime":499162500000,"results":"7","hashOfConfig":"8"},{"size":216,"mtime":1610822930647,"results":"9","hashOfConfig":"8"},{"size":362,"mtime":499162500000,"results":"10","hashOfConfig":"8"},{"size":557,"mtime":1610824492805,"results":"11","hashOfConfig":"8"},{"size":1840,"mtime":1610824203751,"results":"12","hashOfConfig":"8"},{"size":2878,"mtime":1610825675554,"results":"13","hashOfConfig":"8"},{"filePath":"14","messages":"15","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"16"},"aavcbd",{"filePath":"17","messages":"18","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":"19","usedDeprecatedRules":"16"},{"filePath":"20","messages":"21","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"16"},{"filePath":"22","messages":"23","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"24","messages":"25","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"26","messages":"27","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\index.js",[],["28","29"],"C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\App.js",["30"],"import logo from './logo.svg';\nimport './App.css';\nimport Home from \"./screens/Home\";\n\nfunction App() {\n  return (\n    <div className=\"App\">\n      <Home/>\n    </div>\n  );\n}\n\nexport default App;\n","C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\reportWebVitals.js",[],"C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\screens\\Home.js",["31"],"C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\api\\call.js",["32"],"C:\\Users\\alima\\Documents\\React Js projects\\neo4j_js\\src\\component\\FormUser.js",[],{"ruleId":"33","replacedBy":"34"},{"ruleId":"35","replacedBy":"36"},{"ruleId":"37","severity":1,"message":"38","line":1,"column":8,"nodeType":"39","messageId":"40","endLine":1,"endColumn":12},{"ruleId":"41","severity":1,"message":"42","line":6,"column":5,"nodeType":"43","messageId":"44","endLine":8,"endColumn":6},{"ruleId":"37","severity":1,"message":"45","line":6,"column":7,"nodeType":"39","messageId":"40","endLine":6,"endColumn":17},"no-native-reassign",["46"],"no-negated-in-lhs",["47"],"no-unused-vars","'logo' is defined but never used.","Identifier","unusedVar","no-useless-constructor","Useless constructor.","MethodDefinition","noUselessConstructor","'personName' is assigned a value but never used.","no-global-assign","no-unsafe-negation"]
+\ No newline at end of file
++[{"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\index.js":"1","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\reportWebVitals.js":"2","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\App.js":"3","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\MoyenDeTransport.js":"4","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\Usager.js":"5","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\screens\\Home.js":"6","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\FormUser.js":"7","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\api\\call.js":"8"},{"size":517,"mtime":1610822450990,"results":"9","hashOfConfig":"10"},{"size":375,"mtime":1610822450993,"results":"11","hashOfConfig":"10"},{"size":316,"mtime":1610826311349,"results":"12","hashOfConfig":"10"},{"size":0,"mtime":1610823850129,"results":"13","hashOfConfig":"10"},{"size":0,"mtime":1610823850129,"results":"14","hashOfConfig":"10"},{"size":559,"mtime":1610825805337,"results":"15","hashOfConfig":"10"},{"size":2878,"mtime":1610825804875,"results":"16","hashOfConfig":"10"},{"size":2703,"mtime":1610827746309,"results":"17","hashOfConfig":"10"},{"filePath":"18","messages":"19","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"20"},"4ull6q",{"filePath":"21","messages":"22","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"20"},{"filePath":"23","messages":"24","errorCount":0,"warningCount":2,"fixableErrorCount":0,"fixableWarningCount":0,"source":"25","usedDeprecatedRules":"20"},{"filePath":"26","messages":"27","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"20"},{"filePath":"28","messages":"29","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"20"},{"filePath":"30","messages":"31","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":"32","usedDeprecatedRules":"20"},{"filePath":"33","messages":"34","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"20"},{"filePath":"35","messages":"36","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":"37"},"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\index.js",[],["38","39"],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\reportWebVitals.js",[],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\App.js",["40","41"],"import './App.css';\r\nimport usager from './component/Usager'\r\nimport moyenDeTransport from './component/MoyenDeTransport'\r\nimport Home from \"./screens/Home\";\r\nfunction App() {\r\n  return (\r\n    <div className=\"container\">\r\n        <h3>Neo4j App</h3><hr/>\r\n        <Home/>\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default App;\r\n","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\MoyenDeTransport.js",[],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\Usager.js",[],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\screens\\Home.js",["42"],"import React, {Component} from 'react';\r\nimport Api from \"../api/call\"\r\nimport FormUser from \"../component/FormUser\";\r\nclass Home extends Component {\r\n\r\n    constructor(props) {\r\n        super(props);\r\n    }\r\n\r\n    callApi = ()=>{\r\n        return Api.call();\r\n    }\r\n\r\n    getApi = ()=>{\r\n        return Api.getUsagers();\r\n\r\n    }\r\n\r\n\r\n\r\n\r\n    render() {\r\n        return (\r\n            <div>\r\n                <FormUser/>\r\n\r\n                <button onClick={this.getApi} >Get usagers</button>\r\n            </div>\r\n        );\r\n    }\r\n}\r\n\r\nexport default Home;\r\n","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\FormUser.js",[],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\api\\call.js",["43"],"const neo4j = require('neo4j-driver')\r\n\r\nconst driver = neo4j.driver(\"neo4j://localhost:7687\", neo4j.auth.basic(\"neo4j\", \"1923\"))\r\n// const session = driver.session()\r\nconst session = driver.session({database: \"neo4j\"});\r\nconst personName = 'Adnane'\r\n\r\nclass Api {\r\n    addUser = async (usager) => {\r\n        try {\r\n            const result = await session.run(\r\n                'CREATE (a:Usager {age: $age,handicap: $handicap,fonction: $fonction}) RETURN a',\r\n                {\r\n                    age: usager.age,\r\n                    handicap: usager.handicap,\r\n                    fonction: usager.fonction\r\n                }\r\n            )\r\n\r\n            const singleRecord = result.records[0]\r\n            const node = singleRecord.get(0)\r\n\r\n            console.log(node.properties.name)\r\n        } finally {\r\n            await session.close()\r\n        }\r\n\r\n// on application exit:\r\n        await driver.close()\r\n    }\r\n\r\n\r\n    addMoyenDeTransport = async (moyenDeTransport) => {\r\n        try {\r\n            const result = await session.run(\r\n                'CREATE (a:MoyenDeTransport {type: $type,numero: $numero,constructeur: $constructeur, anneemiseenservice: $anneemiseenservice}) RETURN a',\r\n                {\r\n                    type: moyenDeTransport.type,\r\n                    numero: moyenDeTransport.numero,\r\n                    constructeur: moyenDeTransport.constructeur,\r\n                    anneemiseenservice: moyenDeTransport.anneemiseenservice\r\n\r\n                }\r\n            )\r\n\r\n            const singleRecord = result.records[0]\r\n            const node = singleRecord.get(0)\r\n\r\n            console.log(node.properties.name)\r\n        } finally {\r\n            await session.close()\r\n        }\r\n\r\n// on application exit:\r\n        await driver.close()\r\n    }\r\n\r\n\r\n    getUsagers = () => {\r\n        console.log(\"Get\")\r\n        // const neo4j = require('neo4j-driver');\r\n        // const driver = neo4j.driver('bolt://localhost:7687',\r\n        //     neo4j.auth.basic('neo4j', 'Oussama2'),\r\n        //     {/* encrypted: 'ENCRYPTION_OFF' */});\r\n\r\n        const query = `MATCH (n:Usager)-[r]->(m) return distinct n.nomComplet as usager`;\r\n\r\n        // const params = {\"category\": \"Dairy Products\"};\r\n\r\n        // const session = driver.session({database:\"neo4j\"});\r\n\r\n        session.run(query)\r\n            .then((result) => {\r\n                result.records.forEach((record) => {\r\n                    console.log(record.get('usager'));\r\n                });\r\n                session.close();\r\n                driver.close();\r\n            })\r\n            .catch((error) => {\r\n                console.error(error);\r\n            });\r\n\r\n    }\r\n\r\n}\r\n\r\nexport default new Api();\r\n\r\n",{"ruleId":"44","replacedBy":"45"},{"ruleId":"46","replacedBy":"47"},{"ruleId":"48","severity":1,"message":"49","line":2,"column":8,"nodeType":"50","messageId":"51","endLine":2,"endColumn":14},{"ruleId":"48","severity":1,"message":"52","line":3,"column":8,"nodeType":"50","messageId":"51","endLine":3,"endColumn":24},{"ruleId":"53","severity":1,"message":"54","line":6,"column":5,"nodeType":"55","messageId":"56","endLine":8,"endColumn":6},{"ruleId":"48","severity":1,"message":"57","line":6,"column":7,"nodeType":"50","messageId":"51","endLine":6,"endColumn":17},"no-native-reassign",["58"],"no-negated-in-lhs",["59"],"no-unused-vars","'usager' is defined but never used.","Identifier","unusedVar","'moyenDeTransport' is defined but never used.","no-useless-constructor","Useless constructor.","MethodDefinition","noUselessConstructor","'personName' is assigned a value but never used.","no-global-assign","no-unsafe-negation"]
+\ No newline at end of file

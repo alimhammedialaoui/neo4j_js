@@ -1,0 +1,100 @@
+Index: src/screens/Home.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from 'react';\r\nimport Api from \"../api/call\"\r\nclass Home extends Component {\r\n\r\n    constructor(props) {\r\n        super(props);\r\n    }\r\n\r\n    callApi = ()=>{\r\n        return Api.call();\r\n    }\r\n\r\n    getApi = ()=>{\r\n        return Api.getUsagers();\r\n    }\r\n\r\n\r\n    render() {\r\n        return (\r\n            <div>\r\n                <p>Test</p>\r\n                <button onClick={this.callApi} >Click</button><br/>\r\n                <button onClick={this.getApi} >Get usagers</button>\r\n            </div>\r\n        );\r\n    }\r\n}\r\n\r\nexport default Home;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screens/Home.js b/src/screens/Home.js
+--- a/src/screens/Home.js	(revision 9718e697ffb70f8ec16cf1f39a52f77015f23943)
++++ b/src/screens/Home.js	(date 1610822580177)
+@@ -12,6 +12,7 @@
+ 
+     getApi = ()=>{
+         return Api.getUsagers();
++
+     }
+ 
+ 
+Index: src/api/call.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const neo4j = require('neo4j-driver')\r\n\r\nconst driver = neo4j.driver(\"neo4j://localhost:7687\", neo4j.auth.basic(\"neo4j\", \"Oussama2\"))\r\n// const session = driver.session()\r\nconst session = driver.session({database:\"neo4j\"});\r\nconst personName = 'Alice'\r\n\r\nclass Api {\r\n    call = async () => {\r\n        console.log(\"Hello World\")\r\n        try {\r\n            const result = await session.run(\r\n                'CREATE (a:Person {name: $name}) RETURN a',\r\n                { name: personName }\r\n            )\r\n\r\n            const singleRecord = result.records[0]\r\n            const node = singleRecord.get(0)\r\n\r\n            console.log(node.properties.name)\r\n        } finally {\r\n            await session.close()\r\n        }\r\n\r\n// on application exit:\r\n        await driver.close()\r\n    }\r\n\r\n    getUsagers=()=>{\r\n        // const neo4j = require('neo4j-driver');\r\n        // const driver = neo4j.driver('bolt://localhost:7687',\r\n        //     neo4j.auth.basic('neo4j', 'Oussama2'),\r\n        //     {/* encrypted: 'ENCRYPTION_OFF' */});\r\n\r\n        const query = `MATCH (n:Usager)-[r]->(m) return distinct n.nomComplet as usager`;\r\n\r\n        // const params = {\"category\": \"Dairy Products\"};\r\n\r\n        // const session = driver.session({database:\"neo4j\"});\r\n\r\n        session.run(query)\r\n            .then((result) => {\r\n                result.records.forEach((record) => {\r\n                    console.log(record.get('usager'));\r\n                });\r\n                session.close();\r\n                driver.close();\r\n            })\r\n            .catch((error) => {\r\n                console.error(error);\r\n            });\r\n\r\n    }\r\n\r\n}\r\n\r\nexport default new Api();\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/api/call.js b/src/api/call.js
+--- a/src/api/call.js	(revision 9718e697ffb70f8ec16cf1f39a52f77015f23943)
++++ b/src/api/call.js	(date 1610823246387)
+@@ -1,6 +1,6 @@
+ const neo4j = require('neo4j-driver')
+ 
+-const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
++const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "0000"))
+ // const session = driver.session()
+ const session = driver.session({database:"neo4j"});
+ const personName = 'Alice'
+@@ -50,6 +50,8 @@
+                 console.error(error);
+             });
+ 
++
++
+     }
+ 
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"f3a3a227-6d6c-4139-aebe-94ba1dc60302\" name=\"Default Changelist\" comment=\"commit\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1n9pYxsFzjXcGTQMl80Lkm78WAd\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"dart.analysis.tool.window.visible\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$USER_HOME$/Desktop/Projet Diouri\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.standard\" value=\"true\" />\r\n    <property name=\"node.js.path.for.package.eslint\" value=\"project\" />\r\n    <property name=\"node.js.path.for.package.standard\" value=\"project\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.standard\" value=\"\" />\r\n    <property name=\"nodejs_interpreter_path\" value=\"node\" />\r\n    <property name=\"nodejs_interpreter_path.stuck_in_default_project\" value=\"undefined stuck path\" />\r\n    <property name=\"nodejs_npm_path_reset_for_default_project\" value=\"true\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"CodeWithMe\" />\r\n    <property name=\"ts.external.directory.path\" value=\"C:\\Program Files\\JetBrains\\WebStorm 2020.2.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external\" />\r\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"npm.npm start\">\r\n    <configuration name=\"Debug Application\" type=\"JavascriptDebugType\" uri=\"http://localhost:3000\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"npm start\" type=\"js.build_tools.npm\">\r\n      <package-json value=\"$PROJECT_DIR$/package.json\" />\r\n      <command value=\"run\" />\r\n      <scripts>\r\n        <script value=\"start\" />\r\n      </scripts>\r\n      <node-interpreter value=\"project\" />\r\n      <envs />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"f3a3a227-6d6c-4139-aebe-94ba1dc60302\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1610812211503</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1610812211503</updated>\r\n      <workItem from=\"1610812212797\" duration=\"1761000\" />\r\n      <workItem from=\"1610816677641\" duration=\"1822000\" />\r\n      <workItem from=\"1610819378715\" duration=\"270000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"commit\">\r\n      <created>1610820877750</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1610820877750</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"commit\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"commit\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 9718e697ffb70f8ec16cf1f39a52f77015f23943)
++++ b/.idea/workspace.xml	(date 1610823720473)
+@@ -1,7 +1,12 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="f3a3a227-6d6c-4139-aebe-94ba1dc60302" name="Default Changelist" comment="commit" />
++    <list default="true" id="f3a3a227-6d6c-4139-aebe-94ba1dc60302" name="Default Changelist" comment="commit">
++      <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/api/call.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/call.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Home.js" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -20,6 +25,7 @@
+     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
++    <property name="aspect.path.notification.shown" value="true" />
+     <property name="dart.analysis.tool.window.visible" value="false" />
+     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Projet Diouri" />
+     <property name="node.js.detected.package.eslint" value="true" />
+@@ -62,6 +68,7 @@
+       <workItem from="1610812212797" duration="1761000" />
+       <workItem from="1610816677641" duration="1822000" />
+       <workItem from="1610819378715" duration="270000" />
++      <workItem from="1610822462477" duration="1201000" />
+     </task>
+     <task id="LOCAL-00001" summary="commit">
+       <created>1610820877750</created>
+Index: .eslintcache
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[{\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/index.js\":\"1\",\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/reportWebVitals.js\":\"2\",\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/App.js\":\"3\",\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/screens/Home.js\":\"4\",\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/api/call.js\":\"5\"},{\"size\":500,\"mtime\":1610818487519,\"results\":\"6\",\"hashOfConfig\":\"7\"},{\"size\":362,\"mtime\":1610818487523,\"results\":\"8\",\"hashOfConfig\":\"7\"},{\"size\":194,\"mtime\":1610818487511,\"results\":\"9\",\"hashOfConfig\":\"7\"},{\"size\":544,\"mtime\":1610820761197,\"results\":\"10\",\"hashOfConfig\":\"7\"},{\"size\":1608,\"mtime\":1610820826643,\"results\":\"11\",\"hashOfConfig\":\"7\"},{\"filePath\":\"12\",\"messages\":\"13\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},\"1o96wki\",{\"filePath\":\"14\",\"messages\":\"15\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},{\"filePath\":\"16\",\"messages\":\"17\",\"errorCount\":0,\"warningCount\":1,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"source\":null},{\"filePath\":\"18\",\"messages\":\"19\",\"errorCount\":0,\"warningCount\":1,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"source\":null},{\"filePath\":\"20\",\"messages\":\"21\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/index.js\",[],\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/reportWebVitals.js\",[],\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/App.js\",[\"22\"],\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/screens/Home.js\",[\"23\"],\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/api/call.js\",[],{\"ruleId\":\"24\",\"severity\":1,\"message\":\"25\",\"line\":1,\"column\":8,\"nodeType\":\"26\",\"messageId\":\"27\",\"endLine\":1,\"endColumn\":12},{\"ruleId\":\"28\",\"severity\":1,\"message\":\"29\",\"line\":5,\"column\":5,\"nodeType\":\"30\",\"messageId\":\"31\",\"endLine\":7,\"endColumn\":6},\"no-unused-vars\",\"'logo' is defined but never used.\",\"Identifier\",\"unusedVar\",\"no-useless-constructor\",\"Useless constructor.\",\"MethodDefinition\",\"noUselessConstructor\"]
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.eslintcache b/.eslintcache
+--- a/.eslintcache	(revision 9718e697ffb70f8ec16cf1f39a52f77015f23943)
++++ b/.eslintcache	(date 1610823731576)
+@@ -1,1 +1,1 @@
+-[{"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/index.js":"1","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/reportWebVitals.js":"2","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/App.js":"3","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/screens/Home.js":"4","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/api/call.js":"5"},{"size":500,"mtime":1610818487519,"results":"6","hashOfConfig":"7"},{"size":362,"mtime":1610818487523,"results":"8","hashOfConfig":"7"},{"size":194,"mtime":1610818487511,"results":"9","hashOfConfig":"7"},{"size":544,"mtime":1610820761197,"results":"10","hashOfConfig":"7"},{"size":1608,"mtime":1610820826643,"results":"11","hashOfConfig":"7"},{"filePath":"12","messages":"13","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"1o96wki",{"filePath":"14","messages":"15","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"16","messages":"17","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"18","messages":"19","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"20","messages":"21","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/index.js",[],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/reportWebVitals.js",[],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/App.js",["22"],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/screens/Home.js",["23"],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/api/call.js",[],{"ruleId":"24","severity":1,"message":"25","line":1,"column":8,"nodeType":"26","messageId":"27","endLine":1,"endColumn":12},{"ruleId":"28","severity":1,"message":"29","line":5,"column":5,"nodeType":"30","messageId":"31","endLine":7,"endColumn":6},"no-unused-vars","'logo' is defined but never used.","Identifier","unusedVar","no-useless-constructor","Useless constructor.","MethodDefinition","noUselessConstructor"]
+\ No newline at end of file
++[{"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\index.js":"1","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\App.js":"2","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\reportWebVitals.js":"3","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\screens\\Home.js":"4","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\api\\call.js":"5"},{"size":517,"mtime":1610822450990,"results":"6","hashOfConfig":"7"},{"size":207,"mtime":1610822450985,"results":"8","hashOfConfig":"7"},{"size":375,"mtime":1610822450993,"results":"9","hashOfConfig":"7"},{"size":575,"mtime":1610822580178,"results":"10","hashOfConfig":"7"},{"size":1665,"mtime":1610823246387,"results":"11","hashOfConfig":"7"},{"filePath":"12","messages":"13","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"14"},"4ull6q",{"filePath":"15","messages":"16","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":"17","usedDeprecatedRules":"14"},{"filePath":"18","messages":"19","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"14"},{"filePath":"20","messages":"21","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":"22","usedDeprecatedRules":"14"},{"filePath":"23","messages":"24","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\index.js",[],["25","26"],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\App.js",["27"],"import logo from './logo.svg';\r\nimport './App.css';\r\nimport Home from \"./screens/Home\";\r\n\r\nfunction App() {\r\n  return (\r\n    <div className=\"App\">\r\n      <Home/>\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default App;\r\n","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\reportWebVitals.js",[],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\screens\\Home.js",["28"],"import React, {Component} from 'react';\r\nimport Api from \"../api/call\"\r\nclass Home extends Component {\r\n\r\n    constructor(props) {\r\n        super(props);\r\n    }\r\n\r\n    callApi = ()=>{\r\n        return Api.call();\r\n    }\r\n\r\n    getApi = ()=>{\r\n        return Api.getUsagers();\r\n\r\n    }\r\n\r\n\r\n    render() {\r\n        return (\r\n            <div>\r\n                <p>Test</p>\r\n                <button onClick={this.callApi} >Click</button><br/>\r\n                <button onClick={this.getApi} >Get usagers</button>\r\n            </div>\r\n        );\r\n    }\r\n}\r\n\r\nexport default Home;\r\n","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\api\\call.js",[],{"ruleId":"29","replacedBy":"30"},{"ruleId":"31","replacedBy":"32"},{"ruleId":"33","severity":1,"message":"34","line":1,"column":8,"nodeType":"35","messageId":"36","endLine":1,"endColumn":12},{"ruleId":"37","severity":1,"message":"38","line":5,"column":5,"nodeType":"39","messageId":"40","endLine":7,"endColumn":6},"no-native-reassign",["41"],"no-negated-in-lhs",["42"],"no-unused-vars","'logo' is defined but never used.","Identifier","unusedVar","no-useless-constructor","Useless constructor.","MethodDefinition","noUselessConstructor","no-global-assign","no-unsafe-negation"]
+\ No newline at end of file
