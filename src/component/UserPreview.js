@@ -46,7 +46,6 @@ class UserPreview extends Component{
                     </tbody>
                 </table>
                 {this.showPreferenceTrans && this.showPreferenceTrans}
-                {/*<FormMoyenDeTransport/>*/}
             </div>
         )
     }
