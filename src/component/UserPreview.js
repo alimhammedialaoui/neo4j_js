@@ -15,6 +15,7 @@ class UserPreview extends Component{
                         <th>Nom complet</th>
                         <th>Handicap</th>
                         <th>Fonction</th>
+                        <th>Date de naissance</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -23,11 +24,11 @@ class UserPreview extends Component{
                         return (<tr>
                             <td className="align-middle">{usager.properties.nomComplet}</td>
                             <td className="align-middle">{usager.properties.handicap}</td>
+                            {/*<td className="align-middle">{usager.properties.dateDeNaissance.day}/{usager.properties.dateDeNaissance.month}/{usager.properties.dateDeNaissance.year}</td>*/}
                             <td className="align-middle">{usager.properties.fonction}</td>
+                            <td className="align-middle"></td>
                             <td>
                                 <button className="btn btn-info">Update</button>
-                                |
-                                <button className="btn btn-info">Delete</button>
                             </td>
                         </tr>)
                     })}
