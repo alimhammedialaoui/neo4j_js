@@ -7,11 +7,13 @@ const personName = 'Adnane'
 
 class Api {
     addUser = async (usager) => {
+        console.log("Usager")
         try {
             const result = await session.run(
-                'CREATE (a:Usager {age: $age,handicap: $handicap,fonction: $fonction}) RETURN a',
+                'CREATE (a:Usager {nomComplet:$nomComplet,dateDeNaissance: $dateDeNaissance,handicap: $handicap,fonction: $fonction}) RETURN a',
                 {
-                    age: usager.age,
+                    nomComplet:usager.nom,
+                    dateDeNaissance: usager.dateDeNaissance,
                     handicap: usager.handicap,
                     fonction: usager.fonction
                 }
@@ -20,7 +22,6 @@ class Api {
             const singleRecord = result.records[0]
             const node = singleRecord.get(0)
 
-            console.log(node.properties.name)
         } finally {
             await session.close()
         }

@@ -5,8 +5,9 @@ class FormUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            age: "",
-            handicap: "false",
+            nom:"",
+            dateDeNaissance: "",
+            handicap: "N",
             fonction: ""
         }
     }
@@ -19,7 +20,8 @@ class FormUser extends Component {
 
     addUserApi = () => {
         const usager = {
-            age: this.state.age,
+            nom:this.state.nom,
+            dateDeNaissance: this.state.dateDeNaissance,
             handicap: this.state.handicap,
             fonction: this.state.fonction
         }
@@ -37,12 +39,21 @@ class FormUser extends Component {
             <div>
                 <table>
                     <tr>
+                        <td>Nom</td>
+                        <input style={this.styles.input}
+                               name="nom"
+                               value={this.nom}
+                               onChange={this.changeHandler}  type={"text"}/>
+                    </tr>
+                    <br/>
+                    <tr>
                         <td>Age</td>
                         <input style={this.styles.input}
-                            name="age"
-                            value={this.age}
-                            onChange={this.changeHandler} inputMode={"numeric"} type={"number"}/>
+                            name="dateDeNaissance"
+                            value={this.dateDeNaissance}
+                            onChange={this.changeHandler}  type={"date"}/>
                     </tr>
+                    <br/>
                     <tr>
                         <td>Handicap</td>
                         <td>
@@ -50,16 +61,17 @@ class FormUser extends Component {
                                    name="handicap"
                                    value={this.handicap}
                                    onChange={() =>
-                                       this.setState({handicap: "oui"})} type={"radio"}/>
+                                       this.setState({handicap: "O"})} type={"radio"}/>
                             <label>Oui</label>
                             <input style={{...this.styles.input,marginInline: 30}}
                                    name="handicap"
                                    value={this.handicap}
                                    onChange={() =>
-                                       this.setState({handicap: "non"})} type={"radio"}/>
+                                       this.setState({handicap: "N"})} type={"radio"}/>
                             <label>Non</label>
                         </td>
                     </tr>
+                    <br/>
                     <tr>
                         <td>Fonction</td>
                         <input
