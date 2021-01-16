@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import FormMoyenDeTransport from "./FormMoyenDeTransport";
 
 class UserPreview extends Component{
 
@@ -34,6 +35,7 @@ class UserPreview extends Component{
                     })}
                     </tbody>
                 </table>
+                <FormMoyenDeTransport/>
             </div>
         )
     }

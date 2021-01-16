@@ -87,6 +87,7 @@ class FormUser extends Component {
                 <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={this.addUserApi}>Add
                     user
                 </button>
+
             </div>
         );
     }

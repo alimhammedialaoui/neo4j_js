@@ -1,7 +1,7 @@
 
 const neo4j = require('neo4j-driver')
 
-const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
+const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "0000"))
 // const session = driver.session()
 const session = driver.session({database: "neo4j"});
 const personName = 'Adnane'
@@ -24,6 +24,31 @@ class Api {
             const singleRecord = result.records[0]
             const node = singleRecord.get(0)
 
+        } finally {
+            await session.close()
+        }
+
+// on application exit:
+        await driver.close()
+    }
+
+    addMoyenDeTransport = async (moyenDeTransport) => {
+        try {
+            const result = await session.run(
+                'CREATE (a:MoyenDeTransport {type: $type,numero: $numero,constructeur: $constructeur, anneemiseenservice: $anneemiseenservice}) RETURN a',
+                {
+                    type: moyenDeTransport.type,
+                    numero: moyenDeTransport.numero,
+                    constructeur: moyenDeTransport.constructeur,
+                    anneemiseenservice: moyenDeTransport.anneemiseenservice
+
+                }
+            )
+
+            const singleRecord = result.records[0]
+            const node = singleRecord.get(0)
+
+            console.log(node.properties.name)
         } finally {
             await session.close()
         }
