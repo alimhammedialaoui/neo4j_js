@@ -32,8 +32,6 @@ class Api {
         await driver.close()
     }
 
-
-
 }
 
 export default new Api();
