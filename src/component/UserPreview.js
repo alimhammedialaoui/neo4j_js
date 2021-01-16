@@ -40,7 +40,9 @@ class UserPreview extends Component{
 
     componentDidMount(){
         this.getUsagers();
-
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.getUsagers();
     }
 
     getUsagers = () => {
