@@ -1,7 +1,8 @@
 const neo4j = require('neo4j-driver')
 
-const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
-const session = driver.session()
+const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
+// const session = driver.session()
+const session = driver.session({database:"neo4j"});
 const personName = 'Alice'
 
 class Api {
@@ -23,6 +24,32 @@ class Api {
 
 // on application exit:
         await driver.close()
+    }
+
+    getUsagers=()=>{
+        // const neo4j = require('neo4j-driver');
+        // const driver = neo4j.driver('bolt://localhost:7687',
+        //     neo4j.auth.basic('neo4j', 'Oussama2'),
+        //     {/* encrypted: 'ENCRYPTION_OFF' */});
+
+        const query = `MATCH (n:Usager)-[r]->(m) return distinct n.nomComplet as usager`;
+
+        // const params = {"category": "Dairy Products"};
+
+        // const session = driver.session({database:"neo4j"});
+
+        session.run(query)
+            .then((result) => {
+                result.records.forEach((record) => {
+                    console.log(record.get('usager'));
+                });
+                session.close();
+                driver.close();
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
     }
 
 }
