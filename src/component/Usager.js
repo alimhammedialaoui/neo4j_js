@@ -5,6 +5,7 @@ function Usager() {
     return (
         <div>
             <UserPreview/>
+            <hr/>
             <FormUser/>
         </div>
     );

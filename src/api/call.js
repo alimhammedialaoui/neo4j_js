@@ -1,4 +1,3 @@
-import {useState} from 'react';
 
 const neo4j = require('neo4j-driver')
 
@@ -33,23 +32,7 @@ class Api {
         await driver.close()
     }
 
-    getUsagers = () => {
-        var usagers=[];
-        const query = `MATCH (n:Usager)-[r]->(m) return distinct n as usager`;
 
-        session.run(query)
-            .then((result) => {
-                result.records.forEach((record) => {
-                    console.log(record.get('usager'));
-                });
-                session.close();
-                driver.close();
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-        return usagers;
-    }
 
 }
 

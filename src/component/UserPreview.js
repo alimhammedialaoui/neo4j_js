@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Api from "../api/call"
 
+
+
 class UserPreview extends Component{
 
     state = {
@@ -38,6 +40,7 @@ class UserPreview extends Component{
         )
     }
 
+
     componentDidMount(){
         var us = Api.getUsagers()
         console.log(us)
@@ -45,5 +48,30 @@ class UserPreview extends Component{
             usagers: us
         })
     }
+
+    getUsagers = () => {
+        const neo4j = require('neo4j-driver')
+
+        const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
+// const session = driver.session()
+        const session = driver.session({database: "neo4j"});
+        const query = `MATCH (n:Usager)-[r]->(m) return distinct n as usager`;
+
+        session.run(query)
+            .then((result) => {
+                result.records.forEach((record) => {
+                    console.log(record.get('usager'));
+                    this.setState({
+                        usagers:record.get('usager')
+                    })
+                });
+                session.close();
+                driver.close();
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
 }
 export default UserPreview
