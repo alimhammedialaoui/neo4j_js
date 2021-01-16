@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
+import Api from "../api/call"
 
 class FormUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
             age: "",
-            handicap: false,
+            handicap: "false",
             fonction: ""
         }
     }
@@ -16,28 +17,67 @@ class FormUser extends Component {
         })
     }
 
+    addUserApi = () => {
+        const usager = {
+            age: this.state.age,
+            handicap: this.state.handicap,
+            fonction: this.state.fonction
+        }
+        return Api.addUser(usager);
+    }
+
+    styles ={
+        input:{
+            borderRadius:5
+        }
+    }
+
     render() {
         return (
             <div>
-                <label>Age</label>
-                <input
-                    name="age"
-                    value={this.age}
-                    onChange={this.changeHandler}/><br/>
-                <label>Handicap</label>
-                <input
-                    name="handicap"
-                    value={this.handicap}
-                    onChange={this.changeHandler}/><br/>
-                <label>Fonction</label>
-                <input
-                    name="fonction"
-                    value={this.fonction}
-                    onChange={this.changeHandler}/><br/>
-                <button onClick={() => console.log(this.state)}>Click</button>
+                <table>
+                    <tr>
+                        <td>Age</td>
+                        <input style={this.styles.input}
+                            name="age"
+                            value={this.age}
+                            onChange={this.changeHandler} inputMode={"numeric"} type={"number"}/>
+                    </tr>
+                    <tr>
+                        <td>Handicap</td>
+                        <td>
+                            <input  style={{...this.styles.input,marginInline: 30}}
+                                   name="handicap"
+                                   value={this.handicap}
+                                   onChange={() =>
+                                       this.setState({handicap: "oui"})} type={"radio"}/>
+                            <label>Oui</label>
+                            <input style={{...this.styles.input,marginInline: 30}}
+                                   name="handicap"
+                                   value={this.handicap}
+                                   onChange={() =>
+                                       this.setState({handicap: "non"})} type={"radio"}/>
+                            <label>Non</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fonction</td>
+                        <input
+                            style={{...this.styles.input}}
+                            name="fonction"
+                            value={this.fonction}
+                            onChange={this.changeHandler} type={"text"}/>
+                    </tr>
+                </table>
+                <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}}
+                        onClick={() => console.log(this.state)}>Afficher
+                </button>
+                <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={this.addUserApi}>Add
+                    user
+                </button>
             </div>
         );
     }
-}
+};
 
 export default FormUser;
