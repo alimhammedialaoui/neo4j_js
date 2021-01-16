@@ -66,8 +66,8 @@ class FormMoyenDeTransport extends Component {
                         <tr>
                             <td>Année de mise en service</td>
                             <input style={this.styles.input}
-                                   name="constructeur"
-                                   value={this.constructeur}
+                                   name="anneemiseenservice"
+                                   value={this.anneemiseenservice}
                                    onChange={this.changeHandler} type={"text"}/>
                         </tr>
                     </table>
