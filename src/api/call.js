@@ -1,11 +1,15 @@
-const neo4j = require('neo4j-driver')
+import {useState} from 'react';
 
-const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
-// const session = driver.session()
-const session = driver.session({database: "neo4j"});
-const personName = 'Adnane'
 
 class Api {
+
+    neo4j = require('neo4j-driver')
+
+    driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
+// const session = driver.session()
+    session = driver.session({database: "neo4j"});
+    personName = 'Adnane'
+
     addUser = async (usager) => {
         console.log("Usager")
         try {
@@ -47,7 +51,6 @@ class Api {
             .then((result) => {
                 result.records.forEach((record) => {
                     console.log(record.get('usager'));
-                    return record.get('usager');
                 });
                 session.close();
                 driver.close();
