@@ -1,19 +1,14 @@
 import './App.css';
-import {Component} from 'react'
-import usager from './component/Usager';
-import MoyenDeTransport from './component/MoyenDeTransport';
-class App extends Component{
-  render() {
-    return(
+import Usager from './component/Usager'
+import moyenDeTransport from './component/MoyenDeTransport'
+// import Home from "./screens/Home";
+function App() {
+  return (
     <div className="container">
-      Adnane
-      <MoyenDeTransport/>
-       
-       
-        <usager/>
-        
+        <h3>Neo4j App</h3><hr/>
+        <Usager/>
     </div>
     )
   }
-}
+
 export default App;
