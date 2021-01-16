@@ -1,11 +1,12 @@
 const neo4j = require('neo4j-driver')
 
-const driver = neo4j.driver("neo4j://localhost:76", neo4j.auth.basic("neo4j", "1923"))
+const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
 const session = driver.session()
 const personName = 'Alice'
 
 class Api {
     call = async () => {
+        console.log("Hello World")
         try {
             const result = await session.run(
                 'CREATE (a:Person {name: $name}) RETURN a',

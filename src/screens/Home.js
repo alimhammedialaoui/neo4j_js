@@ -6,14 +6,16 @@ class Home extends Component {
         super(props);
     }
 
-    call = Api.call();
+    callApi = ()=>{
+        return Api.call();
+    }
 
 
     render() {
         return (
             <div>
                 <p>Test</p>
-                <button onClick={()=>this.call}>Click</button>
+                <button onClick={this.callApi} >Click</button>
             </div>
         );
     }
