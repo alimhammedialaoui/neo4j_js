@@ -8,7 +8,8 @@ class MoyenDeTransport extends Component {
         this.state = {
             age: "",
             handicap: "false",
-            fonction: ""
+            fonction: "",
+            formtransportHidden:false
         }
     }
 
@@ -20,9 +21,11 @@ class MoyenDeTransport extends Component {
         return (
             <div>
                <h3>Adnane M'barki is the best</h3><hr/>
-                <button className="btn btn-outline-info">Add Transport</button>
+                <button className="btn btn-outline-info" onClick={()=>this.setState({
+                    formtransportHidden:true
+                })}>Add Transport</button>
                 <hr/>
-                {!formtransportHidden && <FormMoyenDeTransport/>}
+                {!this.state.formtransportHidden && <FormMoyenDeTransport/>}
             </div>
         );
     }
