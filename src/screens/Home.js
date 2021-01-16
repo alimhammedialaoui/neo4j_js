@@ -16,11 +16,13 @@ class Home extends Component {
     }
 
 
+
+
     render() {
         return (
             <div>
-                <p>Test</p>
                 <FormUser/>
+
                 <button onClick={this.getApi} >Get usagers</button>
             </div>
         );
