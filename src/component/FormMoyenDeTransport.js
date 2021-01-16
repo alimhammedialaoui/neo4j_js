@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import FormUser from "./FormUser";
+import Api from "../api/call.js";
 
 class FormMoyenDeTransport extends Component {
     constructor(props) {
@@ -18,11 +18,11 @@ class FormMoyenDeTransport extends Component {
             })
     }
 
-    addUserApi = () => {
+    addMoyenDeTransportApi = () => {
         const moyenDeTransport = {
             type: this.state.type,
             numero: this.state.numero,
-            constructeur: this.state.constructor,
+            constructeur: this.state.constructeur,
             anneemiseenservice: this.state.anneemiseenservice
         }
 
@@ -37,22 +37,29 @@ class FormMoyenDeTransport extends Component {
                         name="type"
                         value={this.type}
                         onChange={this.changeHandler}/><br/>
+                    <label>Numero</label>
                     <input
                         name="numero"
                         value={this.numero}
                         onChange={this.changeHandler}/><br/>
 
+                    <label>Constructeur</label>
                      <input
                         name="constructeur"
-                        value={this.constructor}
+                        value={this.constructeur}
                         onChange={this.changeHandler}/><br/>
 
+                    <label>Année de mise en service</label>
                     <input
                         name="anneemiseenservice"
                         value={this.anneemiseenservice}
                         onChange={this.changeHandler}/><br/>
 
-                    <button type="submit">Add Transport</button>
+                    <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={this.addMoyenDeTransportApi}>Add
+                        Transport
+                    </button>
+                    <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={()=> console.log(this.state)}>Click
+                    </button>
 
 
                 </div>
