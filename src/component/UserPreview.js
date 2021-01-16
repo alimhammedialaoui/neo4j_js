@@ -1,15 +1,20 @@
 import React, {Component} from 'react';
 import FormMoyenDeTransport from "./FormMoyenDeTransport";
+import FormUser from "./FormUser";
+import AddPreferenceTransport from "./AddPreferenceTransport";
 
 class UserPreview extends Component{
 
     state = {
-        usagers:[]
+        usagers:[],
+        showAddForm: false,
+        showPrefForm: false,
+        showUpdForm: false,
+        component1:<button onClick={this.showAddForm}>Add usager</button>
     }
     render() {
         return(
             <div className="container">
-                {/*<p>{this.state.usagers}</p>*/}
                 <table className="table">
                     <thead className="thead-dark">
                     <tr>
@@ -29,13 +34,16 @@ class UserPreview extends Component{
                             <td className="align-middle">{usager.properties.fonction}</td>
                             <td className="align-middle"></td>
                             <td>
-                                <button className="btn btn-info">Update</button>
+                                <button className="btn btn-info">Update information</button>
+                                |
+                                <button className="btn btn-info">Add transport preference</button>
                             </td>
                         </tr>)
                     })}
                     </tbody>
                 </table>
-                <FormMoyenDeTransport/>
+                <AddPreferenceTransport/>
+                {/*<FormMoyenDeTransport/>*/}
             </div>
         )
     }
@@ -44,13 +52,24 @@ class UserPreview extends Component{
         this.getUsagers();
     }
 
+    showAddForm=()=>{
+        this.setState({
+            showAddForm:true,
+            component1:<FormUser/>
+        })
+    }
+
+    showPreferenceTrans=(nom)=>{
+        return (
+            <AddPreferenceTransport nomComplet={nom}/>
+        )
+    }
+
     getUsagers = () => {
         const neo4j = require('neo4j-driver')
-
         const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "0000"))
         const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:Usager)-[r]->(m) return distinct n as usager`;
-
         session.run(query)
             .then((result) => {
                 result.records.forEach((record) => {
