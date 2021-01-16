@@ -40,7 +40,7 @@ class FormUser extends Component {
                 <table>
                     <tr>
                         <td>Nom</td>
-                        <input style={this.styles.input}
+                        <input className="form form-control" style={this.styles.input}
                                name="nom"
                                value={this.nom}
                                onChange={this.changeHandler}  type={"text"}/>
@@ -48,7 +48,7 @@ class FormUser extends Component {
                     <br/>
                     <tr>
                         <td>Age</td>
-                        <input style={this.styles.input}
+                        <input className="form form-control" style={this.styles.input}
                             name="dateDeNaissance"
                             value={this.dateDeNaissance}
                             onChange={this.changeHandler}  type={"date"}/>
@@ -57,7 +57,7 @@ class FormUser extends Component {
                     <tr>
                         <td>Handicap</td>
                         <td>
-                            <input  style={{...this.styles.input,marginInline: 30}}
+                            <input   style={{...this.styles.input,marginInline: 30}}
                                    name="handicap"
                                    value={this.handicap}
                                    onChange={() =>
@@ -74,17 +74,17 @@ class FormUser extends Component {
                     <br/>
                     <tr>
                         <td>Fonction</td>
-                        <input
+                        <input className="form form-control"
                             style={{...this.styles.input}}
                             name="fonction"
                             value={this.fonction}
                             onChange={this.changeHandler} type={"text"}/>
                     </tr>
                 </table>
-                <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}}
-                        onClick={() => console.log(this.state)}>Afficher
-                </button>
-                <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={this.addUserApi}>Add
+                {/*<button style={{marginInline: 100, marginTop: 20, marginBottom: 20}}*/}
+                {/*        onClick={() => console.log(this.state)}>Afficher*/}
+                {/*</button>*/}
+                <button className="btn btn-info" style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={this.addUserApi}>Add
                     user
                 </button>
 
