@@ -1,14 +1,13 @@
 import {useState} from 'react';
 
+const neo4j = require('neo4j-driver')
+
+const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
+// const session = driver.session()
+const session = driver.session({database: "neo4j"});
+const personName = 'Adnane'
 
 class Api {
-
-    neo4j = require('neo4j-driver')
-
-    driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
-// const session = driver.session()
-    session = driver.session({database: "neo4j"});
-    personName = 'Adnane'
 
     addUser = async (usager) => {
         console.log("Usager")
@@ -37,10 +36,6 @@ class Api {
     getUsagers = () => {
         var usagers=[];
         const query = `MATCH (n:Usager)-[r]->(m) return distinct n as usager`;
-
-        // const params = {"category": "Dairy Products"};
-
-        // const session = driver.session({database:"neo4j"});
 
         session.run(query)
             .then((result) => {
