@@ -1,0 +1,18 @@
+Index: src/screens/Home.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from 'react';\r\nimport Api from \"../api/call\"\r\nimport FormUser from \"../component/FormUser\";\r\nclass Home extends Component {\r\n\r\n    constructor(props) {\r\n        super(props);\r\n    }\r\n\r\n    callApi = ()=>{\r\n        return Api.call();\r\n    }\r\n\r\n    getApi = ()=>{\r\n        return Api.getUsagers();\r\n    }\r\n\r\n\r\n\r\n\r\n    render() {\r\n        return (\r\n            <div>\r\n                <FormUser/>\r\n\r\n                <button onClick={this.getApi} >Get usagers</button>\r\n            </div>\r\n        );\r\n    }\r\n}\r\n\r\nexport default Home;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screens/Home.js b/src/screens/Home.js
+--- a/src/screens/Home.js	
++++ b/src/screens/Home.js	
+@@ -13,6 +13,7 @@
+ 
+     getApi = ()=>{
+         return Api.getUsagers();
++
+     }
+ 
+ 
