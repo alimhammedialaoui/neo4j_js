@@ -14,7 +14,7 @@ class AddPreferenceTransport extends Component{
 
     getMoyenTransport = () => {
         const neo4j = require('neo4j-driver')
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
+        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
         const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:MoyenTransport) RETURN n  as moyentransport`;
         session.run(query)
@@ -78,7 +78,7 @@ class AddPreferenceTransport extends Component{
 
     postPreference= async()=>{
         const neo4j = require('neo4j-driver')
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
+        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
         const session = driver.session({database: "neo4j"});
         try {
             const result = await session.run(

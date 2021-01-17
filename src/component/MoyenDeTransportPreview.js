@@ -1,39 +1,44 @@
 import React, {Component} from 'react';
+import Api from "../api/call"
+import FormMoyenDeTransport from "./FormMoyenDeTransport";
+import MoyenDeTransport from "./MoyenDeTransport";
 import AddPreferenceTransport from "./AddPreferenceTransport";
 
-class UserPreview extends Component{
 
-    state = {
-        usagers:[],
-        showAddForm: false,
-        showPrefForm: false,
-        showUpdForm: false,
-        nom: "",
-        selectedusager:{}
-    }
+class MoyenDeTransportPreview extends Component {
+    
+        state = {
+            moyens:[],
+            showAddForm: false,
+            showPrefForm: false,
+            showUpdForm: false,
+            nom: ""
+        }
+    
+
     render() {
-        return(
-            <div className="container">
+        return (
+            <div>
+               <div className="container">
                 <table className="table">
                     <thead className="thead-dark">
                     <tr>
-                        <th className="text-center">Nom complet</th>
-                        <th className="text-center">CIN</th>
-                        <th className="text-center">Handicap</th>
-                        <th className="text-center">Date de naissance</th>
-                        <th className="text-center">Fonction</th>
-                        <th className="text-center">Action</th>
+                        <th>No</th>
+                        <th>constructeur</th>
+                        <th>Année mise en service</th>
+                        <th>type</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.usagers.map(usager =>{
+                    {this.state.moyens.map(usager =>{
                         return (<tr>
-                            <td className="align-middle text-center">{usager.properties.nomComplet}</td>
-                            <td className="align-middle text-center">{usager.properties.cin}</td>
-                            <td className="align-middle text-center">{usager.properties.handicap}</td>
-                            <td className="align-middle text-center">{usager.properties.dateDeNaissance}</td>
-                            <td className="align-middle text-center">{usager.properties.fonction}</td>
-                            <td className="text-center">
+                            <td className="align-middle">{usager.properties.no}</td>
+                            <td className="align-middle">{usager.properties.constructeur}</td>
+                            {/*<td className="align-middle">{usager.properties.dateDeNaissance}</td>*/}
+                            <td className="align-middle">{usager.properties.anneeMiseEnService}</td>
+                            <td className="align-middle">{usager.properties.type}</td>
+                            <td>
                                 <button className="btn btn-info">Update information</button>
                                 |
                                 <button className="btn btn-info" onClick={()=> {
@@ -59,28 +64,29 @@ class UserPreview extends Component{
                 {this.state.showPrefForm && <AddPreferenceTransport nomComplet={this.state.nom} usagerSelected={this.state.selectedusager}/>}
                 {/*{this.state.showPrefForm && <div> <hr/> <label>{this.state.nom}</label><AddPreferenceTransport nomComplet={this.state.nom}/></div>}*/}
             </div>
-        )
+            </div>
+           
+        );
+    
     }
-
-    componentDidMount(){
+     componentDidMount(){
         this.getUsagers();
     }
-
     getUsagers = () => {
         const neo4j = require('neo4j-driver')
         const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
         const session = driver.session({database: "neo4j"});
-        const query = `MATCH (n:Usager) return distinct n as usager`;
+        const query = `MATCH (n:MoyenTransport) return distinct n as moyen`;
         session.run(query)
             .then((result) => {
                 result.records.forEach((record) => {
-                    var us=this.state.usagers;
-                    // console.log(record.get('usager'));
-                    us.push(record.get('usager'))
+                    var us=this.state.moyens;
+                    console.log(record.get('moyen'));
+                    us.push(record.get('moyen'))
                     this.setState({
-                        usagers:us
+                        moyens:us
                     })
-                    // console.log(this.state.usagers)
+                    console.log(this.state.moyens)
                 });
                 session.close();
                 driver.close();
@@ -90,5 +96,8 @@ class UserPreview extends Component{
             });
     }
 
-}
-export default UserPreview
+    
+};
+
+
+export default MoyenDeTransportPreview;
