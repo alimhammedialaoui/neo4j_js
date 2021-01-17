@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import FormMoyenDeTransport from "./FormMoyenDeTransport";
-import FormUser from "./FormUser";
 import AddPreferenceTransport from "./AddPreferenceTransport";
 
 class UserPreview extends Component{
