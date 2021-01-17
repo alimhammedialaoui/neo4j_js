@@ -1,11 +1,9 @@
 import './App.css';
 import Usager from './component/Usager'
 import {useState} from "react"
-import moyenDeTransport from './component/MoyenDeTransport'
 import MoyenDeTransport from "./component/MoyenDeTransport";
 import ShortestPath from "./component/ShortestPath";
 import StationsTransit from "./component/StationsTransit";
-// import Home from "./screens/Home";
 function App() {
 
     const [usagerHidden,setUsagerHidden] = useState(true)
@@ -25,7 +23,6 @@ function App() {
         <button className="btn btn-outline-dark" onClick={()=>setStationTransitHidden(!stationTransitHidden)}>Station de transit</button><br/><br/>
         {!stationTransitHidden && <StationsTransit/>}
     </div>
-
     )
   }
 

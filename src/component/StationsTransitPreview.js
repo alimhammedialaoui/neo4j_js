@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 
 class StationsTransitPreview extends Component{
+    neo4j = require('neo4j-driver');
+    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "Oussama2"));
+    session = this.driver.session({database: "neo4j"});
 
     state={
         stationsTransit:[],
         distance: 0
     }
-    neo4j = require('neo4j-driver');
-    driver = this.neo4j.driver("neo4j://localhost:7687", this.neo4j.auth.basic("neo4j", "1923"));
-    session = this.driver.session({database: "neo4j"});
+
     componentDidMount() {
         this.getStationTransit()
     }
@@ -26,8 +27,6 @@ class StationsTransitPreview extends Component{
             })
             .then((result) => {
                 result.records.forEach((record) => {
-                    // console.log(record.get('chemin'));
-                    // console.log(record.get('distance').low);
                     this.setState({
                         stationsTransit:record.get('chemin'),
                         distance:record.get('distance').low
