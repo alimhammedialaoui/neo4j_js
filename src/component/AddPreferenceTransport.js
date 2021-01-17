@@ -44,14 +44,14 @@ class AddPreferenceTransport extends Component{
         return(
             <div>
                 <p>{this.state.nomUsager}</p>
-                <select>
+                <select className="form form-control-sm">
                     {this.state.moyenTransport.map(mt=>{
                         return(
                             <option>{mt.properties.type}</option>
                         )
                     })}
                 </select>
-                <select>
+                <select className="form form-control-sm">
                     <option>0</option>
                     <option>1</option>
                     <option>2</option>

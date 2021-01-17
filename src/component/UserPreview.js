@@ -36,10 +36,16 @@ class UserPreview extends Component{
                                 <button className="btn btn-info">Update information</button>
                                 |
                                 <button className="btn btn-info" onClick={()=> {
-                                    this.setState({
-                                        showPrefForm: !this.state.showPrefForm,
-                                        nom: usager.properties.nomComplet
-                                    })
+                                    if(this.state.showPrefForm===true){
+                                        this.setState({
+                                            nom: usager.properties.nomComplet
+                                        })
+                                    }else {
+                                        this.setState({
+                                            showPrefForm: !this.state.showPrefForm,
+                                            nom: usager.properties.nomComplet
+                                        })
+                                    }
                                     console.log(this.state.showPrefForm)
                                 }}>Add transport preference</button>
                             </td>
@@ -47,7 +53,8 @@ class UserPreview extends Component{
                     })}
                     </tbody>
                 </table>
-                {this.state.showPrefForm && <AddPreferenceTransport nomComplet={this.state.nom}/>}
+
+                {this.state.showPrefForm && <div> <hr/> <label>{this.state.nom}</label><AddPreferenceTransport nomComplet={this.state.nom}/></div>}
             </div>
         )
     }
