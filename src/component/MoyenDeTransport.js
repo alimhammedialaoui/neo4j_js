@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Api from "../api/call"
 import FormMoyenDeTransport from "./FormMoyenDeTransport";
+import MoyenDeTransportPreview from "./MoyenDeTransportPreview";
 
 class MoyenDeTransport extends Component {
     constructor(props) {
@@ -20,6 +21,8 @@ class MoyenDeTransport extends Component {
                 <button className="btn btn-outline-info" onClick={()=>this.setState({
                     formtransportHidden:!this.state.formtransportHidden
                 })}>Add Transport</button>
+                    <br/><br/>
+            <MoyenDeTransportPreview/>
                 <hr/>
                 {this.state.formtransportHidden && <FormMoyenDeTransport/>}
             </div>
