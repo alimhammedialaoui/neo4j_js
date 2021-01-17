@@ -8,7 +8,9 @@ class AddPreferenceTransport extends Component{
             moyenTransport:[],
             usager:props.usagerSelected,
             selectedMT:"",
-            poids:0
+            poids:0,
+            isSelected : false,
+            selectedItem : "23689j0"
         }
     }
 
@@ -53,6 +55,7 @@ class AddPreferenceTransport extends Component{
                         <label htmlFor="inputState">Moyen de transport</label>
                         <select className="form-control" value={this.state.selectedMT} onChange={ e=> this.setState({selectedMT: e.target.value})}>
                             {this.state.moyenTransport.map(mt => {
+
                                 return (
                                     <option key={mt.properties.no} value={mt.properties.no}>{mt.properties.type}</option>
                                 )
@@ -62,7 +65,7 @@ class AddPreferenceTransport extends Component{
                     <div className="form-group col-md-1">
                         <label htmlFor="inputState">Poids</label>
                         <select id="inputState" className="form-control" value={this.state.poids} onChange={ e=> this.setState({poids: e.target.value})}>
-                            <option value={0}>0</option>
+                            <option value={0} selected>0</option>
                             <option value={1}>1</option>
                             <option value={2}>2</option>
                         </select>

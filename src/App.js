@@ -1,15 +1,15 @@
-import {useState} from "react"
 import './App.css';
-
 import Usager from './component/Usager'
-import StationsTransit from './component/StationsTransit'
-import MoyenDeTransport from './component/MoyenDeTransport';
+import {useState} from "react"
+import moyenDeTransport from './component/MoyenDeTransport'
+import MoyenDeTransport from "./component/MoyenDeTransport";
+import ShortestPath from "./component/ShortestPath";
 // import Home from "./screens/Home";
 function App() {
 
     const [usagerHidden,setUsagerHidden] = useState(true)
     const [transportHidden,setTransportHidden] = useState(true)
-    const [stationsTransitHidden,setStationsTransitHidden] = useState(true)
+    const [shortestPathHidden,setShortestPathHidden] = useState(true)
 
   return (
     <div className="container">
@@ -18,8 +18,8 @@ function App() {
         {!usagerHidden && <Usager/>}
         <button className="btn btn-outline-dark" onClick={()=>setTransportHidden(!transportHidden)}>Afficher Transport</button><br/><br/>
         {!transportHidden && <MoyenDeTransport/>}
-        <button className="btn btn-outline-dark" onClick={()=>setStationsTransitHidden(!stationsTransitHidden)}>Afficher stations de transit</button><br/><br/>
-        {!stationsTransitHidden && <StationsTransit/>}
+        <button className="btn btn-outline-dark" onClick={()=>setShortestPathHidden(!shortestPathHidden)}>Cours chemin</button><br/><br/>
+        {!shortestPathHidden && <ShortestPath/>}
     </div>
 
     )
