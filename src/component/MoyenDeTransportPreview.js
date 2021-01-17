@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Api from "../api/call"
 import FormMoyenDeTransport from "./FormMoyenDeTransport";
 import MoyenDeTransport from "./MoyenDeTransport";
-import AddPreferenceTransport from "./AddPreferenceTransport";
+import AddStation from "./AddStation";
 
 
 class MoyenDeTransportPreview extends Component {
@@ -11,10 +11,12 @@ class MoyenDeTransportPreview extends Component {
      session = this.driver.session({database: "neo4j"});
         state = {
             moyens:[],
+            stations:[],
             showAddForm: false,
             showPrefForm: false,
             showUpdForm: false,
-            nom: ""
+            nom: "",
+            selectedmoyen:{}
         }
 
 
@@ -33,47 +35,48 @@ class MoyenDeTransportPreview extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.moyens.map(usager =>{
+                    {this.state.moyens.map(moyen =>{
                         return (<tr>
-                            <td className="align-middle">{usager.properties.no}</td>
-                            <td className="align-middle">{usager.properties.constructeur}</td>
+                            <td className="align-middle">{moyen.properties.no}</td>
+                            <td className="align-middle">{moyen.properties.constructeur}</td>
                             {/*<td className="align-middle">{usager.properties.dateDeNaissance}</td>*/}
-                            <td className="align-middle">{usager.properties.anneeMiseEnService}</td>
-                            <td className="align-middle">{usager.properties.type}</td>
+                            <td className="align-middle">{moyen.properties.anneeMiseEnService}</td>
+                            <td className="align-middle">{moyen.properties.type}</td>
                             <td>
                               
                                 
                                 <button className="btn btn-info" onClick={()=> {
                                     if(this.state.showPrefForm===true){
                                         this.setState({
-                                            nom: usager.properties.nomComplet,
-                                            selectedusager:usager
+                                            nom: moyen.properties.type,
+                                            selectedmoyen:moyen
                                         })
                                     }else {
                                         this.setState({
                                             showPrefForm: !this.state.showPrefForm,
-                                            nom: usager.properties.nomComplet,
-                                            selectedusager:usager
+                                            type: moyen.properties.type,
+                                            selectedmoyen:moyen
                                         })
                                     }
                                     console.log(this.state.showPrefForm)
-                                }}>Add transport preference</button>
+                                }}>Add Station</button>
                             </td>
                         </tr>)
                     })}
                     </tbody>
                 </table>
-                {/* {this.state.showPrefForm && <AddPreferenceTransport nomComplet={this.state.nom} usagerSelected={this.state.selectedusager}/>} */}
-                {/*{this.state.showPrefForm && <div> <hr/> <label>{this.state.nom}</label><AddPreferenceTransport nomComplet={this.state.nom}/></div>}*/}
+                {this.state.showPrefForm && <AddStation nomComplet={this.state.nom} MoyenSelected={this.state.selectedmoyen}/>} 
+               {/* {this.state.showPrefForm && <div> <hr/> <label>{this.state.nom}</label><AddStation nomComplet={this.state.nom}/></div>} */}
             </div>
             </div>
 
         );
 
     }
-     componentDidMount(){
+    componentDidMount(){
         this.getUsagers();
     }
+
     getUsagers = () => {
      
         const query = `MATCH (n:MoyenTransport) return distinct n as moyen`;
@@ -95,6 +98,7 @@ class MoyenDeTransportPreview extends Component {
                 console.error(error);
             });
     }
+
 
 
 };

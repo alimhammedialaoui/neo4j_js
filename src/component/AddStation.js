@@ -1,35 +1,36 @@
 import React,{Component} from "react";
 
-class AddPreferenceTransport extends Component{
+class AddStation extends Component{
 
 
     constructor(props) {
         super(props);
         this.state={
             moyenTransport:[],
-            usager:props.usagerSelected,
+            moyenTransport:props.MoyenTransport,
             selectedMT:"",
             poids:0,
+            heure:0,
             isSelected : false,
-            selectedItem : "23689j0"
+            selectedItem : "23689j0",
+            stations:[]
         }
     }
-
-    getMoyenTransport = () => {
+    getStations = () => {
         const neo4j = require('neo4j-driver')
         const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
         const session = driver.session({database: "neo4j"});
-
-        const query = `MATCH (n:MoyenTransport) RETURN n  as moyentransport`;
+        const query = `MATCH (n:Station) RETURN n as station`;
         session.run(query)
             .then((result) => {
                 result.records.forEach((record) => {
-                    var mt = this.state.moyenTransport;
-                    mt.push(record.get('moyentransport'))
+                    var us=this.state.stations;
+                    console.log(record.get('station'));
+                    us.push(record.get('station'))
                     this.setState({
-                        moyenTransport: mt
+                        stations:us
                     })
-                    console.log(this.state.moyenTransport)
+                    console.log(this.state.stations)
                 });
                 session.close();
                 driver.close();
@@ -38,9 +39,11 @@ class AddPreferenceTransport extends Component{
                 console.error(error);
             });
     }
+   
 
+   
     componentDidMount(){
-        this.getMoyenTransport()
+        this.getStations()
     }
 
     render(){
@@ -48,54 +51,51 @@ class AddPreferenceTransport extends Component{
             <div>
                 <div className="form-row">
                     <div className="form-group col-md-4">
-                        <label>Usager</label>
-                        <input type="text" value={this.props.usagerSelected.properties.nomComplet} disabled="true"
+                        <label>Moyen De Transport</label>
+                        <input type="text" value={this.props.MoyenSelected.properties.type} disabled="true"
                                className="form-control"/>
                     </div>
                     <div className="form-group col-md-3">
-                        <label htmlFor="inputState">Moyen de transport</label>
+                        <label htmlFor="inputState">Station</label>
                         <select className="form-control" value={this.state.selectedMT} onChange={ e=> this.setState({selectedMT: e.target.value})}>
-                            {this.state.moyenTransport.map(mt => {
+                            {this.state.stations.map(mt => {
 
                                 return (
-                                    <option key={mt.properties.no} value={mt.properties.no}>{mt.properties.type}</option>
+                                    <option key={mt.properties.id} value={mt.properties.nom}>{mt.properties.nom}</option>
                                 )
                             })}
                         </select>
                     </div>
-                    <div className="form-group col-md-1">
-                        <label htmlFor="inputState">Poids</label>
-                        <select id="inputState" className="form-control" value={this.state.poids} onChange={ e=> this.setState({poids: e.target.value})}>
-                            <option value={0} selected>0</option>
-                            <option value={1}>1</option>
-                            <option value={2}>2</option>
-                        </select>
-                    </div>
-                </div>
-                <button className="btn btn-primary col-md-2" onClick={this.postPreference}>Add preference</button>
+                    <div className="form-group col-md-3">
+                        <label htmlFor="inputState">Heure</label>
+                        {/* <select id="inputState" className="form-control" value={this.state.poids} onChange={ e=> this.setState({poids: e.target.value})}> */}
+                        <input class="form-control " type="time" value="13:45:00" id="example-time-input"  onChange={ e=> this.setState({heure: e.target.value})}></input>
+                        </div>
+                 </div>
+                <button className="btn btn-primary col-md-2" onClick={this.postStation}>Add Station</button>
                 <span className="col-md-2"></span>
                 <button className="btn btn-danger col-md-2">Cancel</button>
-            </div>
+            
+</div>
 
         )
     }
 
-    postPreference= async()=>{
+    
+    postStation= async()=>{
         const neo4j = require('neo4j-driver')
         const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
         const session = driver.session({database: "neo4j"});
         try {
-      
-
             await session.run(
-                `MATCH (a:Usager),(b:MoyenTransport) 
-                WHERE a.cin= $CIN AND b.no = $NO
-                CREATE (a)-[r:PREFERS { poids: $POIDS}]->(b)
-                RETURN r.poids`,
+                `MATCH (a:Stastion),(b:MoyenTransport) 
+                WHERE a.nom= $nom AND b.type = $type
+                CREATE (b)-[r:STOPS_AT { heureArriv: $heure}]->(a)
+                RETURN r.heureArriv`,
                 {
-                    CIN: this.props.usagerSelected.properties.cin,
-                    POIDS: this.state.poids,
-                    NO: this.state.selectedMT
+                    type: this.props.MoyenSelected,
+                    nom: this.state.selectedMT,
+                    heure: this.state.heure
                 }
             )
             console.log(this.state.selectedMT)
@@ -108,7 +108,9 @@ class AddPreferenceTransport extends Component{
         await driver.close()
     }
 
+
+
 }
 
 
-export default AddPreferenceTransport;
+export default AddStation;
