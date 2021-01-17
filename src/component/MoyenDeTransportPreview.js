@@ -39,8 +39,8 @@ class MoyenDeTransportPreview extends Component {
                             <td className="align-middle">{usager.properties.anneeMiseEnService}</td>
                             <td className="align-middle">{usager.properties.type}</td>
                             <td>
-                                <button className="btn btn-info">Update information</button>
-                                |
+                              
+                                
                                 <button className="btn btn-info" onClick={()=> {
                                     if(this.state.showPrefForm===true){
                                         this.setState({
@@ -61,7 +61,7 @@ class MoyenDeTransportPreview extends Component {
                     })}
                     </tbody>
                 </table>
-                {this.state.showPrefForm && <AddPreferenceTransport nomComplet={this.state.nom} usagerSelected={this.state.selectedusager}/>}
+                {/* {this.state.showPrefForm && <AddPreferenceTransport nomComplet={this.state.nom} usagerSelected={this.state.selectedusager}/>} */}
                 {/*{this.state.showPrefForm && <div> <hr/> <label>{this.state.nom}</label><AddPreferenceTransport nomComplet={this.state.nom}/></div>}*/}
             </div>
             </div>
