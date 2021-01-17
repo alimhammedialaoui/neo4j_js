@@ -3,8 +3,9 @@ import StationsTransitPreview from "./StationsTransitPreview";
 
 class StationsTransit extends Component{
     neo4j = require('neo4j-driver');
-    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "1234"));
+    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "Oussama2"));
     session = this.driver.session({database: "neo4j"});
+
     state={
         stations1:[],
         stations2:[],
@@ -48,7 +49,8 @@ class StationsTransit extends Component{
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="inputDepart">Station de depart</label>
-                        <select className="form-control" value={this.state.stationDepart} onChange={ e => this.setState({stationDepart: e.target.value})}>
+                        <select className="form-control" value={this.state.stationDepart}
+                                onChange={ e => this.setState({stationDepart: e.target.value,showTransitStations:false})}>
                             {this.state.stations1.map(st => {
                                 return (
                                     <option key={st.properties.nom} value={st.properties.nom}>{st.properties.nom}</option>
@@ -58,8 +60,10 @@ class StationsTransit extends Component{
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="inputArrivee">Station d'arrivee</label>
-                        <select className="form-control" value={this.state.stationArrivee} onChange={ e => this.setState({stationArrivee: e.target.value})}>
-                            {this.state.stations2.map(st => {
+                        <select className="form-control" value={this.state.stationArrivee}
+                                onChange={ e => this.setState({stationArrivee: e.target.value,showTransitStations:false})}>
+                            {
+                                this.state.stations2.map(st => {
                                 return (
                                     <option key={st.properties.nom} value={st.properties.nom}>{st.properties.nom}</option>
                                 )
@@ -67,7 +71,7 @@ class StationsTransit extends Component{
                         </select>
                     </div>
                 </div>
-                <button className="btn btn-primary col-md-2" onClick={()=>{this.setState({showTransitStations:true});}}>Parcourir</button>
+                <button className="btn btn-primary col-md-2" onClick={()=>{this.setState({showTransitStations:true})}}>Parcourir</button>
                 {this.state.showTransitStations && <StationsTransitPreview stationDepart={this.state.stationDepart} stationArrivee={this.state.stationArrivee}/>}
             </div>
         )

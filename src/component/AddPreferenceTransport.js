@@ -1,6 +1,9 @@
 import React,{Component} from "react";
 
 class AddPreferenceTransport extends Component{
+    neo4j = require('neo4j-driver')
+    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "Oussama2"))
+    session = this.driver.session({database: "neo4j"});
 
     constructor(props) {
         super(props);
@@ -8,28 +11,26 @@ class AddPreferenceTransport extends Component{
             moyenTransport:[],
             usager:props.usagerSelected,
             selectedMT:"",
-            poids:0
+            poids:0,
+            isSelected : false,
+            selectedItem : "23689j0"
         }
     }
 
     getMoyenTransport = () => {
-        const neo4j = require('neo4j-driver')
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
-        const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:MoyenTransport) RETURN n  as moyentransport`;
-        session.run(query)
+        this.session.run(query)
             .then((result) => {
                 result.records.forEach((record) => {
                     var mt = this.state.moyenTransport;
-                    // console.log(record.get('moyen'));
                     mt.push(record.get('moyentransport'))
                     this.setState({
                         moyenTransport: mt
                     })
                     console.log(this.state.moyenTransport)
                 });
-                session.close();
-                driver.close();
+                this.session.close();
+                this.driver.close();
             })
             .catch((error) => {
                 console.error(error);
@@ -53,6 +54,7 @@ class AddPreferenceTransport extends Component{
                         <label htmlFor="inputState">Moyen de transport</label>
                         <select className="form-control" value={this.state.selectedMT} onChange={ e=> this.setState({selectedMT: e.target.value})}>
                             {this.state.moyenTransport.map(mt => {
+
                                 return (
                                     <option key={mt.properties.no} value={mt.properties.no}>{mt.properties.type}</option>
                                 )
@@ -62,7 +64,7 @@ class AddPreferenceTransport extends Component{
                     <div className="form-group col-md-1">
                         <label htmlFor="inputState">Poids</label>
                         <select id="inputState" className="form-control" value={this.state.poids} onChange={ e=> this.setState({poids: e.target.value})}>
-                            <option value={0}>0</option>
+                            <option value={0} selected>0</option>
                             <option value={1}>1</option>
                             <option value={2}>2</option>
                         </select>
@@ -77,11 +79,8 @@ class AddPreferenceTransport extends Component{
     }
 
     postPreference= async()=>{
-        const neo4j = require('neo4j-driver')
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
-        const session = driver.session({database: "neo4j"});
         try {
-            const result = await session.run(
+            await this.session.run(
                 `MATCH (a:Usager),(b:MoyenTransport) 
                 WHERE a.cin= $CIN AND b.no = $NO
                 CREATE (a)-[r:PREFERS { poids: $POIDS}]->(b)
@@ -96,10 +95,10 @@ class AddPreferenceTransport extends Component{
 
 
         } finally {
-            await session.close()
+            await this.session.close()
         }
         // on application exit:
-        await driver.close()
+        await this.driver.close()
     }
 
 }
