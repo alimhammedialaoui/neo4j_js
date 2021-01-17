@@ -9,7 +9,7 @@ function App() {
 
     const link = "bolt://localhost:7687";
     const username = "neo4j";
-    const password = "Oussama2";
+    const password = "1234";
 
     const [usagerHidden,setUsagerHidden] = useState(true)
     const [transportHidden,setTransportHidden] = useState(true)
