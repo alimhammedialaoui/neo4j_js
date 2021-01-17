@@ -1,5 +1,4 @@
-import {useState} from "react";
-
+import React,{Component} from "react";
 class AddPreferenceTransport extends Component{
     state={
         moyenTransport:[],
@@ -12,7 +11,7 @@ class AddPreferenceTransport extends Component{
             nomUsager:props.nomUsager
         })
     }
-    // [moyen,setMoyen] = useState([]);
+
 
     getMoyenTransport = () => {
         const neo4j = require('neo4j-driver')
@@ -46,9 +45,9 @@ class AddPreferenceTransport extends Component{
             <div>
                 <p>{this.state.nomUsager}</p>
                 <select>
-                    {this.state.moyensTransport.map(mt=>{
+                    {this.state.moyenTransport.map(mt=>{
                         return(
-                            <option>mt.properties.type</option>
+                            <option>{mt.properties.type}</option>
                         )
                     })}
                 </select>
@@ -64,4 +63,4 @@ class AddPreferenceTransport extends Component{
 }
 
 
-export default AddPreferenceTransport
+export default AddPreferenceTransport;
