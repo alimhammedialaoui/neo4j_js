@@ -15,6 +15,7 @@ class StationsTransitPreview extends Component{
 
     getStationTransit= async ()=>{
         console.log(this.props.stationDepart)
+        console.log(this.props.stationArrivee)
         await this.session.run(
             `match p=(BEGIN:Station)-[:FOLLOWED_BY*]->(END:Station)
             where BEGIN.nom =$DEPART AND END.nom=$ARRIVEE
@@ -25,16 +26,13 @@ class StationsTransitPreview extends Component{
             })
             .then((result) => {
                 result.records.forEach((record) => {
-                    // var us=this.state.stationsTransit;
-                    // us.push(record.get('chemin'))
-                    console.log(record.get('chemin'));
-                    console.log(record.get('distance').low);
+                    // console.log(record.get('chemin'));
+                    // console.log(record.get('distance').low);
                     this.setState({
                         stationsTransit:record.get('chemin'),
                         distance:record.get('distance').low
                     })
                 });
-
             })
             .catch((error) => {
                 console.error(error);
@@ -51,7 +49,7 @@ class StationsTransitPreview extends Component{
                     <thead className="thead-dark">
                     <tr>
                         <th className="text-center">Station de depart</th>
-                        <th className="text-center">Stations de transit</th>
+                        <th className="text-center">Chemin</th>
                         <th className="text-center">Station d'arrivee</th>
                         <th className="text-center">Distance</th>
                     </tr>
@@ -59,8 +57,8 @@ class StationsTransitPreview extends Component{
                     <tbody>
                     <tr>
                         <td>{this.props.stationDepart}</td>
-                        <td>{this.state.stationsTransit.map(st=>{
-                            return (<p>{st}</p>)
+                        <td>{this.state.stationsTransit.map((st,index)=>{
+                            return (<p key={index}>{index+1}-{st}</p>)
                         })
                         }
                         </td>
