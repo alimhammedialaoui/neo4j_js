@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import StationsTransitPreview from "./StationsTransitPreview";
-import AddPreferenceTransport from "./AddPreferenceTransport";
+import TransportAdequatPreview from "./TransportAdequatPreview";
 
-class StationsTransit extends Component{
-
+class TransportAdequat extends Component{
     state={
         stations1:[],
         stations2:[],
@@ -46,7 +44,7 @@ class StationsTransit extends Component{
     render(){
         return (
             <div className="container">
-                <h4>Afficher stations transit</h4><hr/>
+                <h4>Moyen de transport adequat</h4><hr/>
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="inputDepart">Station de depart</label>
@@ -65,17 +63,17 @@ class StationsTransit extends Component{
                                 onChange={ e => this.setState({stationArrivee: e.target.value,showTransitStations:false})}>
                             {
                                 this.state.stations2.map(st => {
-                                return (
-                                    <option key={st.properties.nom} value={st.properties.nom}>{st.properties.nom}</option>
-                                )
-                            })}
+                                    return (
+                                        <option key={st.properties.nom} value={st.properties.nom}>{st.properties.nom}</option>
+                                    )
+                                })}
                         </select>
                     </div>
                 </div>
                 <button className="btn btn-primary col-md-2" onClick={()=>{this.setState({showTransitStations:true})}}>Parcourir</button>
                 {
                     this.state.showTransitStations &&
-                    <StationsTransitPreview
+                    <TransportAdequatPreview
                         stationDepart={this.state.stationDepart}
                         stationArrivee={this.state.stationArrivee}
                         link={this.props.link}
@@ -85,4 +83,5 @@ class StationsTransit extends Component{
         )
     }
 }
-export default StationsTransit;
+
+export default TransportAdequat
