@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f3a3a227-6d6c-4139-aebe-94ba1dc60302" name="Default Changelist" comment="add Question 2 - Shortest Path ShortestPath.js">
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/AddPreferenceTransport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/AddPreferenceTransport.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/MoyenDeTransportPreview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/MoyenDeTransportPreview.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/ShortestPath.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/ShortestPath.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/StationsTransit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/StationsTransit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/StationsTransitPreview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/StationsTransitPreview.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/UserPreview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/UserPreview.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610895458968</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="add Question 2 - Shortest Path ShortestPath.js">
+      <created>1610897084076</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1610897084076</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
