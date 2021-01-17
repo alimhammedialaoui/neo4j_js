@@ -93,9 +93,7 @@ class AddPreferenceTransport extends Component{
                 }
             )
             console.log(this.state.selectedMT)
-            //
-            // const singleRecord = result.records[0]
-            // const node = singleRecord.get(0)
+
 
         } finally {
             await session.close()
