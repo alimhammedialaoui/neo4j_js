@@ -69,7 +69,7 @@ class AddStation extends Component{
                     <div className="form-group col-md-3">
                         <label htmlFor="inputState">Heure</label>
                         {/* <select id="inputState" className="form-control" value={this.state.poids} onChange={ e=> this.setState({poids: e.target.value})}> */}
-                        <input class="form-control " type="time" value="13:45:00" id="example-time-input"  onChange={ e=> this.setState({heure: e.target.value})}></input>
+                        <input class="form-control " type="time"   onChange={ e=> this.setState({heure: e.target.value})}></input>
                         </div>
                  </div>
                 <button className="btn btn-primary col-md-2" onClick={this.postStation}>Add Station</button>
@@ -90,14 +90,15 @@ class AddStation extends Component{
         try {
             console.log("heyy")
             await session.run(
-                `MATCH (a:Station{nom:'Station Abdelmoumen'}),(b:MoyenTransport{type:'Covoiturage'}) 
-                CREATE (b)-[r:STOPS_AT{heureArriv:time("16:00:00")}]->(a)
+                `MATCH (a:Station{nom:$nom}),(b:MoyenTransport{type:$type}) 
+                CREATE (b)-[r:STOPS_AT{heureArriv:time($heure)}]->(a)
                 RETURN r.heureArriv`,
                 {
-                    type: this.props.MoyenSelected,
-                    nom: this.state.selectedMT,
-                    heure: this.state.heure
+                    nom:this.state.selectedMT,
+                    type:this.props.MoyenSelected.properties.type,
+                    heure:this.state.heure
                 }
+               
             )
            
             console.log(this.state.selectedMT)
