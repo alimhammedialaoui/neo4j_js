@@ -16,7 +16,7 @@ class MoyenDeTransportPreview extends Component {
             showUpdForm: false,
             nom: ""
         }
-    
+
 
     render() {
         return (
@@ -67,9 +67,9 @@ class MoyenDeTransportPreview extends Component {
                 {/*{this.state.showPrefForm && <div> <hr/> <label>{this.state.nom}</label><AddPreferenceTransport nomComplet={this.state.nom}/></div>}*/}
             </div>
             </div>
-           
+
         );
-    
+
     }
      componentDidMount(){
         this.getUsagers();
@@ -96,7 +96,7 @@ class MoyenDeTransportPreview extends Component {
             });
     }
 
-    
+
 };
 
 

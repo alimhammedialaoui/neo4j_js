@@ -39,8 +39,6 @@ class UserPreview extends Component{
                             <td className="align-middle text-center">{usager.properties.dateDeNaissance}</td>
                             <td className="align-middle text-center">{usager.properties.fonction}</td>
                             <td className="text-center">
-                                <button className="btn btn-info">Update information</button>
-                                |
                                 <button className="btn btn-info" onClick={()=> {
                                     if(this.state.showPrefForm===true){
                                         this.setState({

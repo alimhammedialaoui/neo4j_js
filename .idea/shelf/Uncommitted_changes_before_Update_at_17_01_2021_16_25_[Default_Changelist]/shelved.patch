@@ -1,0 +1,104 @@
+Index: src/component/AddPreferenceTransport.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React,{Component} from \"react\";\r\n\r\nclass AddPreferenceTransport extends Component{\r\n\r\n    constructor(props) {\r\n        super(props);\r\n        this.state={\r\n            moyenTransport:[],\r\n            usager:props.usagerSelected,\r\n            selectedMT:\"\",\r\n            poids:0,\r\n            isSelected : false,\r\n            selectedItem : \"23689j0\"\r\n        }\r\n    }\r\n\r\n    getMoyenTransport = () => {\r\n        const neo4j = require('neo4j-driver')\r\n        const driver = neo4j.driver(\"bolt://localhost:7687\", neo4j.auth.basic(\"neo4j\", \"Oussama2\"))\r\n        const session = driver.session({database: \"neo4j\"});\r\n        const query = `MATCH (n:MoyenTransport) RETURN n  as moyentransport`;\r\n        session.run(query)\r\n            .then((result) => {\r\n                result.records.forEach((record) => {\r\n                    var mt = this.state.moyenTransport;\r\n                    // console.log(record.get('moyen'));\r\n                    mt.push(record.get('moyentransport'))\r\n                    this.setState({\r\n                        moyenTransport: mt\r\n                    })\r\n                    console.log(this.state.moyenTransport)\r\n                });\r\n                session.close();\r\n                driver.close();\r\n            })\r\n            .catch((error) => {\r\n                console.error(error);\r\n            });\r\n    }\r\n\r\n    componentDidMount(){\r\n        this.getMoyenTransport()\r\n    }\r\n\r\n    render(){\r\n        return(\r\n            <div>\r\n                <div className=\"form-row\">\r\n                    <div className=\"form-group col-md-4\">\r\n                        <label>Usager</label>\r\n                        <input type=\"text\" value={this.props.usagerSelected.properties.nomComplet} disabled=\"true\"\r\n                               className=\"form-control\"/>\r\n                    </div>\r\n                    <div className=\"form-group col-md-3\">\r\n                        <label htmlFor=\"inputState\">Moyen de transport</label>\r\n                        <select className=\"form-control\" value={this.state.selectedMT} onChange={ e=> this.setState({selectedMT: e.target.value})}>\r\n                            {this.state.moyenTransport.map(mt => {\r\n\r\n                                return (\r\n                                    <option key={mt.properties.no} value={mt.properties.no}>{mt.properties.type}</option>\r\n                                )\r\n                            })}\r\n                        </select>\r\n                    </div>\r\n                    <div className=\"form-group col-md-1\">\r\n                        <label htmlFor=\"inputState\">Poids</label>\r\n                        <select id=\"inputState\" className=\"form-control\" value={this.state.poids} onChange={ e=> this.setState({poids: e.target.value})}>\r\n                            <option value={0} selected>0</option>\r\n                            <option value={1}>1</option>\r\n                            <option value={2}>2</option>\r\n                        </select>\r\n                    </div>\r\n                </div>\r\n                <button className=\"btn btn-primary col-md-2\" onClick={this.postPreference}>Add preference</button>\r\n                <span className=\"col-md-2\"></span>\r\n                <button className=\"btn btn-danger col-md-2\">Cancel</button>\r\n            </div>\r\n\r\n        )\r\n    }\r\n\r\n    postPreference= async()=>{\r\n        const neo4j = require('neo4j-driver')\r\n        const driver = neo4j.driver(\"bolt://localhost:7687\", neo4j.auth.basic(\"neo4j\", \"Oussama2\"))\r\n        const session = driver.session({database: \"neo4j\"});\r\n        try {\r\n            const result = await session.run(\r\n                `MATCH (a:Usager),(b:MoyenTransport) \r\n                WHERE a.cin= $CIN AND b.no = $NO\r\n                CREATE (a)-[r:PREFERS { poids: $POIDS}]->(b)\r\n                RETURN r.poids`,\r\n                {\r\n                    CIN: this.props.usagerSelected.properties.cin,\r\n                    POIDS: this.state.poids,\r\n                    NO: this.state.selectedMT\r\n                }\r\n            )\r\n            console.log(this.state.selectedMT)\r\n\r\n\r\n        } finally {\r\n            await session.close()\r\n        }\r\n        // on application exit:\r\n        await driver.close()\r\n    }\r\n\r\n}\r\n\r\n\r\nexport default AddPreferenceTransport;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/component/AddPreferenceTransport.js b/src/component/AddPreferenceTransport.js
+--- a/src/component/AddPreferenceTransport.js	(revision 1e2db00525931bd480f30a80f80783593f66e4de)
++++ b/src/component/AddPreferenceTransport.js	(date 1610895820338)
+@@ -16,7 +16,7 @@
+ 
+     getMoyenTransport = () => {
+         const neo4j = require('neo4j-driver')
+-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
++        const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
+         const session = driver.session({database: "neo4j"});
+         const query = `MATCH (n:MoyenTransport) RETURN n  as moyentransport`;
+         session.run(query)
+@@ -81,7 +81,7 @@
+ 
+     postPreference= async()=>{
+         const neo4j = require('neo4j-driver')
+-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
++        const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
+         const session = driver.session({database: "neo4j"});
+         try {
+             const result = await session.run(
+Index: src/component/MoyenDeTransportPreview.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from 'react';\r\nimport Api from \"../api/call\"\r\nimport FormMoyenDeTransport from \"./FormMoyenDeTransport\";\r\nimport MoyenDeTransport from \"./MoyenDeTransport\";\r\nimport AddPreferenceTransport from \"./AddPreferenceTransport\";\r\n\r\n\r\nclass MoyenDeTransportPreview extends Component {\r\n    \r\n        state = {\r\n            moyens:[],\r\n            showAddForm: false,\r\n            showPrefForm: false,\r\n            showUpdForm: false,\r\n            nom: \"\"\r\n        }\r\n    \r\n\r\n    render() {\r\n        return (\r\n            <div>\r\n               <div className=\"container\">\r\n                <table className=\"table\">\r\n                    <thead className=\"thead-dark\">\r\n                    <tr>\r\n                        <th>No</th>\r\n                        <th>constructeur</th>\r\n                        <th>Année mise en service</th>\r\n                        <th>type</th>\r\n                        <th>Action</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    {this.state.moyens.map(usager =>{\r\n                        return (<tr>\r\n                            <td className=\"align-middle\">{usager.properties.no}</td>\r\n                            <td className=\"align-middle\">{usager.properties.constructeur}</td>\r\n                            {/*<td className=\"align-middle\">{usager.properties.dateDeNaissance}</td>*/}\r\n                            <td className=\"align-middle\">{usager.properties.anneeMiseEnService}</td>\r\n                            <td className=\"align-middle\">{usager.properties.type}</td>\r\n                            <td>\r\n                                <button className=\"btn btn-info\">Update information</button>\r\n                                |\r\n                                <button className=\"btn btn-info\" onClick={()=> {\r\n                                    if(this.state.showPrefForm===true){\r\n                                        this.setState({\r\n                                            nom: usager.properties.nomComplet,\r\n                                            selectedusager:usager\r\n                                        })\r\n                                    }else {\r\n                                        this.setState({\r\n                                            showPrefForm: !this.state.showPrefForm,\r\n                                            nom: usager.properties.nomComplet,\r\n                                            selectedusager:usager\r\n                                        })\r\n                                    }\r\n                                    console.log(this.state.showPrefForm)\r\n                                }}>Add transport preference</button>\r\n                            </td>\r\n                        </tr>)\r\n                    })}\r\n                    </tbody>\r\n                </table>\r\n                {this.state.showPrefForm && <AddPreferenceTransport nomComplet={this.state.nom} usagerSelected={this.state.selectedusager}/>}\r\n                {/*{this.state.showPrefForm && <div> <hr/> <label>{this.state.nom}</label><AddPreferenceTransport nomComplet={this.state.nom}/></div>}*/}\r\n            </div>\r\n            </div>\r\n           \r\n        );\r\n    \r\n    }\r\n     componentDidMount(){\r\n        this.getUsagers();\r\n    }\r\n    getUsagers = () => {\r\n        const neo4j = require('neo4j-driver')\r\n        const driver = neo4j.driver(\"bolt://localhost:7687\", neo4j.auth.basic(\"neo4j\", \"1234\"))\r\n        const session = driver.session({database: \"neo4j\"});\r\n        const query = `MATCH (n:MoyenTransport) return distinct n as moyen`;\r\n        session.run(query)\r\n            .then((result) => {\r\n                result.records.forEach((record) => {\r\n                    var us=this.state.moyens;\r\n                    console.log(record.get('moyen'));\r\n                    us.push(record.get('moyen'))\r\n                    this.setState({\r\n                        moyens:us\r\n                    })\r\n                    console.log(this.state.moyens)\r\n                });\r\n                session.close();\r\n                driver.close();\r\n            })\r\n            .catch((error) => {\r\n                console.error(error);\r\n            });\r\n    }\r\n\r\n    \r\n};\r\n\r\n\r\nexport default MoyenDeTransportPreview;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/component/MoyenDeTransportPreview.js b/src/component/MoyenDeTransportPreview.js
+--- a/src/component/MoyenDeTransportPreview.js	(revision 1e2db00525931bd480f30a80f80783593f66e4de)
++++ b/src/component/MoyenDeTransportPreview.js	(date 1610895479011)
+@@ -6,7 +6,7 @@
+ 
+ 
+ class MoyenDeTransportPreview extends Component {
+-    
++
+         state = {
+             moyens:[],
+             showAddForm: false,
+@@ -14,7 +14,7 @@
+             showUpdForm: false,
+             nom: ""
+         }
+-    
++
+ 
+     render() {
+         return (
+@@ -65,16 +65,16 @@
+                 {/*{this.state.showPrefForm && <div> <hr/> <label>{this.state.nom}</label><AddPreferenceTransport nomComplet={this.state.nom}/></div>}*/}
+             </div>
+             </div>
+-           
++
+         );
+-    
++
+     }
+      componentDidMount(){
+         this.getUsagers();
+     }
+     getUsagers = () => {
+         const neo4j = require('neo4j-driver')
+-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
++        const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
+         const session = driver.session({database: "neo4j"});
+         const query = `MATCH (n:MoyenTransport) return distinct n as moyen`;
+         session.run(query)
+@@ -96,7 +96,7 @@
+             });
+     }
+ 
+-    
++
+ };
+ 
+ 
+Index: src/component/StationsTransit.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from 'react';\r\nimport StationsTransitPreview from \"./StationsTransitPreview\";\r\n\r\nclass StationsTransit extends Component{\r\n    neo4j = require('neo4j-driver');\r\n    driver = this.neo4j.driver(\"bolt://localhost:7687\", this.neo4j.auth.basic(\"neo4j\", \"1234\"));\r\n    session = this.driver.session({database: \"neo4j\"});\r\n    state={\r\n        stations1:[],\r\n        stations2:[],\r\n        stationDepart:\"\",\r\n        stationArrivee:\"\",\r\n        showTransitStations:false\r\n    }\r\n\r\n    getStations=()=>{\r\n        const query = `MATCH (n:Station) return distinct n as stations`;\r\n        this.session.run(query)\r\n            .then((result) => {\r\n                result.records.forEach((record) => {\r\n                    var st1=this.state.stations1;\r\n                    var st2=this.state.stations2;\r\n                    st1.push(record.get('stations'));\r\n                    st2.push(record.get('stations'));\r\n                    this.setState({\r\n                        stationDepart:st1[0].properties.nom,\r\n                        stationArrivee:st2[0].properties.nom,\r\n                        stations1:st1,\r\n                        stations2:st2\r\n                    })\r\n                });\r\n                this.session.close();\r\n                this.driver.close();\r\n            })\r\n            .catch((error) => {\r\n                console.error(error);\r\n            });\r\n\r\n    }\r\n\r\n    componentDidMount() {\r\n        this.getStations();\r\n    }\r\n\r\n    render(){\r\n        return (\r\n            <div>\r\n                <div className=\"form-row\">\r\n                    <div className=\"form-group col-md-6\">\r\n                        <label htmlFor=\"inputDepart\">Station de depart</label>\r\n                        <select className=\"form-control\" value={this.state.stationDepart}\r\n                                onChange={ e => this.setState({stationDepart: e.target.value,showTransitStations:false})}>\r\n                            {this.state.stations1.map(st => {\r\n                                return (\r\n                                    <option key={st.properties.nom} value={st.properties.nom}>{st.properties.nom}</option>\r\n                                )\r\n                            })}\r\n                        </select>\r\n                    </div>\r\n                    <div className=\"form-group col-md-6\">\r\n                        <label htmlFor=\"inputArrivee\">Station d'arrivee</label>\r\n                        <select className=\"form-control\" value={this.state.stationArrivee}\r\n                                onChange={ e => this.setState({stationArrivee: e.target.value,showTransitStations:false})}>\r\n                            {\r\n                                this.state.stations2.map(st => {\r\n                                return (\r\n                                    <option key={st.properties.nom} value={st.properties.nom}>{st.properties.nom}</option>\r\n                                )\r\n                            })}\r\n                        </select>\r\n                    </div>\r\n                </div>\r\n                <button className=\"btn btn-primary col-md-2\" onClick={()=>{this.setState({showTransitStations:true})}}>Parcourir</button>\r\n                {this.state.showTransitStations && <StationsTransitPreview stationDepart={this.state.stationDepart} stationArrivee={this.state.stationArrivee}/>}\r\n            </div>\r\n        )\r\n    }\r\n}\r\nexport default StationsTransit;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/component/StationsTransit.js b/src/component/StationsTransit.js
+--- a/src/component/StationsTransit.js	(revision 1e2db00525931bd480f30a80f80783593f66e4de)
++++ b/src/component/StationsTransit.js	(date 1610895479027)
+@@ -3,7 +3,7 @@
+ 
+ class StationsTransit extends Component{
+     neo4j = require('neo4j-driver');
+-    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "1234"));
++    driver = this.neo4j.driver("neo4j://localhost:7687", this.neo4j.auth.basic("neo4j", "1923"));
+     session = this.driver.session({database: "neo4j"});
+     state={
+         stations1:[],
