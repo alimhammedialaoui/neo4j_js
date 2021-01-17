@@ -1,9 +1,6 @@
 import React,{Component} from "react";
 
 class AddPreferenceTransport extends Component{
-    neo4j = require('neo4j-driver')
-    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "1234"))
-    session = this.driver.session({database: "neo4j"});
 
     constructor(props) {
         super(props);
@@ -18,8 +15,11 @@ class AddPreferenceTransport extends Component{
     }
 
     getMoyenTransport = () => {
+        const neo4j = require('neo4j-driver')
+        const driver = neo4j.driver(this.props.link, neo4j.auth.basic(this.props.username, this.props.password))
+        const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:MoyenTransport) RETURN n  as moyentransport`;
-        this.session.run(query)
+        session.run(query)
             .then((result) => {
                 result.records.forEach((record) => {
                     var mt = this.state.moyenTransport;
@@ -29,8 +29,8 @@ class AddPreferenceTransport extends Component{
                     })
                     console.log(this.state.moyenTransport)
                 });
-                this.session.close();
-                this.driver.close();
+                session.close();
+                driver.close();
             })
             .catch((error) => {
                 console.error(error);
@@ -79,8 +79,11 @@ class AddPreferenceTransport extends Component{
     }
 
     postPreference= async()=>{
+        const neo4j = require('neo4j-driver')
+        const driver = neo4j.driver(this.props.link, neo4j.auth.basic(this.props.username, this.props.password))
+        const session = driver.session({database: "neo4j"});
         try {
-            await this.session.run(
+            await session.run(
                 `MATCH (a:Usager),(b:MoyenTransport) 
                 WHERE a.cin= $CIN AND b.no = $NO
                 CREATE (a)-[r:PREFERS { poids: $POIDS}]->(b)
@@ -95,10 +98,10 @@ class AddPreferenceTransport extends Component{
 
 
         } finally {
-            await this.session.close()
+            await session.close()
         }
         // on application exit:
-        await this.driver.close()
+        await driver.close()
     }
 
 }

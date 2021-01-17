@@ -1,10 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f3a3a227-6d6c-4139-aebe-94ba1dc60302" name="Default Changelist" comment="add Question 2 - Shortest Path ShortestPath.js">
+    <list default="true" id="73dce971-0739-442a-8ada-2dd43c463289" name="Default Changelist" comment="Commit Oussama">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21,_10_27_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21,_10_30_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21,_10_35_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21,_11_09_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21,_7_06_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21,_7_06_PM_[Default_Changelist]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21,_7_45_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21,_7_45_PM_[Default_Changelist]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21,_9_31_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21,_9_31_PM_[Default_Changelist]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21__10_27_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21__10_30_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21__10_35_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21__11_09_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21__7_06_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21__7_45_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21__7_45_PM__Default_Changelist_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_16_21__9_31_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21,_10_44_AM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21,_12_04_AM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21,_12_15_AM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21,_12_37_AM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21,_12_38_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21,_12_52_AM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21,_1_12_AM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21__10_44_AM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21__12_04_AM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21__12_15_AM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21__12_37_AM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21__12_38_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21__12_52_AM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_17_21__1_12_AM__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/call.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/call.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/AddPreferenceTransport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/AddPreferenceTransport.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/FormUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/FormUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/MoyenDeTransport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/MoyenDeTransport.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/MoyenDeTransportPreview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/MoyenDeTransportPreview.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/ShortestPath.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/ShortestPath.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/StationsTransit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/StationsTransit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/StationsTransitPreview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/StationsTransitPreview.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/Usager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/Usager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/UserPreview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/UserPreview.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +55,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="2" />
@@ -76,7 +119,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f3a3a227-6d6c-4139-aebe-94ba1dc60302" name="Default Changelist" comment="" />
+      <changelist id="73dce971-0739-442a-8ada-2dd43c463289" name="Default Changelist" comment="Commit Oussama" />
       <created>1610812211503</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -85,6 +128,7 @@
       <workItem from="1610816677641" duration="1822000" />
       <workItem from="1610819378715" duration="270000" />
       <workItem from="1610833247410" duration="1288000" />
+      <workItem from="1610917253647" duration="2208000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1610820877750</created>
@@ -163,28 +207,7 @@
       <option name="project" value="LOCAL" />
       <updated>1610894658637</updated>
     </task>
-    <task id="LOCAL-00012" summary="add Question 2 - Shortest Path ShortestPath.js">
-      <created>1610895071786</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1610895071786</updated>
-    </task>
-    <task id="LOCAL-00013" summary="add Question 2 - Shortest Path ShortestPath.js">
-      <created>1610895458968</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1610895458968</updated>
-    </task>
-    <task id="LOCAL-00014" summary="add Question 2 - Shortest Path ShortestPath.js">
-      <created>1610897084076</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1610897084076</updated>
-    </task>
-    <option name="localTasksCounter" value="15" />
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-const neo4j = require('neo4j-driver')
-const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
-const session = driver.session({database: "neo4j"});
-class ShortestPath extends Component {
 
+class ShortestPath extends Component {
 
     constructor(props) {
         super(props);
@@ -22,7 +19,8 @@ class ShortestPath extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
+                <h4>Afficher plus court chemin</h4><hr/>
                 <div className="form-row">
                     <div className="form-group col-md-4">
                         <label>Station de départ</label>
@@ -87,7 +85,9 @@ class ShortestPath extends Component {
     }
 
     getStations = () => {
-
+        const neo4j = require('neo4j-driver')
+        const driver = neo4j.driver(this.props.link, neo4j.auth.basic(this.props.username, this.props.password))
+        const session = driver.session({database: "neo4j"});
         const query = `MATCH (e:Station) return e as stations`;
         var stops = this.state.stations;
         session.run(query)
@@ -111,11 +111,13 @@ class ShortestPath extends Component {
 
 
     getShortestPath = () => {
-
+        const neo4j = require('neo4j-driver')
+        const driver = neo4j.driver(this.props.link, neo4j.auth.basic(this.props.username, this.props.password))
+        const session = driver.session({database: "neo4j"});
         const query = `match p=(BEGIN:Station)-[:FOLLOWED_BY*]->(END:Station)
                         where BEGIN.nom =$depart AND END.nom=$arrive
-                        return BEGIN.nom +"\n"+ END.nom as inputs,nodes(p) as chemin,reduce(duree=0, r in relationships(p)| duree+(r.duree)) as duree
-                        order by duree
+                        return BEGIN.nom +"\n"+ END.nom as inputs,nodes(p) as chemin,reduce(distance=0, r in relationships(p)| distance+(r.distance)) as distance
+                        order by distance
                         LIMIT 1`;
         var path = this.state.shortestPath;
         //console.log(this.state)

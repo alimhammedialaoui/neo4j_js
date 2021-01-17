@@ -81,9 +81,6 @@ class FormUser extends Component {
                             onChange={this.changeHandler} type={"text"}/>
                     </tr>
                 </table>
-                {/*<button style={{marginInline: 100, marginTop: 20, marginBottom: 20}}*/}
-                {/*        onClick={() => console.log(this.state)}>Afficher*/}
-                {/*</button>*/}
                 <button className="btn btn-info" style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={this.addUserApi}>Add
                     user
                 </button>
