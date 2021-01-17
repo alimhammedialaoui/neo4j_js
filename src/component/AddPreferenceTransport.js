@@ -1,10 +1,12 @@
 import {useState} from "react";
 
-function AddPreferenceTransport(props){
+class AddPreferenceTransport extends Component{
+    state={
+        moyenTransport:[]
+    }
+    // [moyen,setMoyen] = useState([]);
 
-    const [moyen,setMoyen] = useState([]);
-
-    const getMoyenTransport = () => {
+    getMoyenTransport = () => {
         const neo4j = require('neo4j-driver')
         const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
         const session = driver.session({database: "neo4j"});
@@ -12,13 +14,13 @@ function AddPreferenceTransport(props){
         session.run(query)
             .then((result) => {
                 result.records.forEach((record) => {
-                    var us=moyen;
-                    console.log(record.get('usager'));
-                    us.push(record.get('usager'))
+                    var mt = this.state.moyenTransport;
+                    // console.log(record.get('moyen'));
+                    mt.push(record.get('moyentransport'))
                     this.setState({
-                        usagers:us
+                        moyenTransport: mt
                     })
-                    console.log(this.state.usagers)
+                    console.log(this.state.moyenTransport)
                 });
                 session.close();
                 driver.close();
@@ -28,24 +30,25 @@ function AddPreferenceTransport(props){
             });
     }
 
-
-    return(
-        <div>
-            <p>{props.nomUsager}</p>
-            <select>
-                {props.moyensTransport.map(mt=>{
-                    return(
-                        <option>mt.type</option>
-                    )
-                })}
-            </select>
-            <select>
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-            </select>
-        </div>
-    )
+    render(){
+        return(
+            <div>
+                <p>{props.nomUsager}</p>
+                <select>
+                    {this.state.moyensTransport.map(mt=>{
+                        return(
+                            <option>mt.properties.type</option>
+                        )
+                    })}
+                </select>
+                <select>
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                </select>
+            </div>
+        )
+    }
 
 }
 
