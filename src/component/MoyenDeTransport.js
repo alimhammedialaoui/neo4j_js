@@ -13,10 +13,6 @@ class MoyenDeTransport extends Component {
         }
     }
 
-
-
-
-
     render() {
         return (
             <div>

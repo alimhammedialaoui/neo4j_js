@@ -10,6 +10,7 @@ class UserPreview extends Component{
         showAddForm: false,
         showPrefForm: false,
         showUpdForm: false,
+        nom: ""
     }
     render() {
         return(
@@ -36,16 +37,17 @@ class UserPreview extends Component{
                                 |
                                 <button className="btn btn-info" onClick={()=> {
                                     this.setState({
-                                        showPrefForm: true
+                                        showPrefForm: !this.state.showPrefForm,
+                                        nom: usager.properties.nomComplet
                                     })
-                                    this.showPreferenceTrans(usager.properties.nomComplet)
+                                    console.log(this.state.showPrefForm)
                                 }}>Add transport preference</button>
                             </td>
                         </tr>)
                     })}
                     </tbody>
                 </table>
-                {this.showPreferenceTrans && this.showPreferenceTrans}
+                {this.state.showPrefForm && <AddPreferenceTransport nomComplet={this.state.nom}/>}
             </div>
         )
     }
@@ -55,17 +57,12 @@ class UserPreview extends Component{
     }
 
 
-    showPreferenceTrans=(nom)=>{
-        return (
-            <AddPreferenceTransport nomComplet={nom}/>
-        )
-    }
 
     getUsagers = () => {
         const neo4j = require('neo4j-driver')
         const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
         const session = driver.session({database: "neo4j"});
-        const query = `MATCH (n:Usager)-[r]->(m) return distinct n as usager`;
+        const query = `MATCH (n:Usager) return distinct n as usager`;
         session.run(query)
             .then((result) => {
                 result.records.forEach((record) => {
