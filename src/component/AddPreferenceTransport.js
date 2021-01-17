@@ -38,6 +38,9 @@ class AddPreferenceTransport extends Component{
             });
     }
 
+    componentDidMount(){
+        this.getMoyenTransport()
+    }
     render(){
         return(
             <div>
