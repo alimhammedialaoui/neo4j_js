@@ -7,7 +7,7 @@ class StationsTransitPreview extends Component{
         distance: 0
     }
     neo4j = require('neo4j-driver');
-    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "1234"));
+    driver = this.neo4j.driver("neo4j://localhost:7687", this.neo4j.auth.basic("neo4j", "1923"));
     session = this.driver.session({database: "neo4j"});
     componentDidMount() {
         this.getStationTransit()
