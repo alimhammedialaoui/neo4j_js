@@ -1,0 +1,283 @@
+Index: src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import './App.css';\r\nimport Usager from './component/Usager'\r\nimport moyenDeTransport from './component/MoyenDeTransport'\r\n// import Home from \"./screens/Home\";\r\nfunction App() {\r\n  return (\r\n    <div className=\"container\">\r\n        <h3>Neo4j App</h3><hr/>\r\n        <Usager/>\r\n    </div>\r\n    )\r\n  }\r\n\r\nexport default App;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/App.js b/src/App.js
+--- a/src/App.js	(revision ce351171605e3c59ea4cb1119b91a3b7c7b64c61)
++++ b/src/App.js	(date 1610837724555)
+@@ -1,13 +1,23 @@
+ import './App.css';
+ import Usager from './component/Usager'
++import {useState} from "react"
+ import moyenDeTransport from './component/MoyenDeTransport'
++import MoyenDeTransport from "./component/MoyenDeTransport";
+ // import Home from "./screens/Home";
+ function App() {
++
++    const [usagerHidden,setUsagerHidden] = useState(true)
++    const [transportHidden,setTransportHidden] = useState(true)
++
+   return (
+     <div className="container">
+         <h3>Neo4j App</h3><hr/>
+-        <Usager/>
++        <button className="btn btn-outline-dark" onClick={()=>setUsagerHidden(!usagerHidden)}>Afficher Usager</button><br/><br/>
++        {!usagerHidden && <Usager/>}
++        <button className="btn btn-outline-dark" onClick={()=>setTransportHidden(!transportHidden)}>Afficher Transport</button><br/><br/>
++        {!transportHidden && <MoyenDeTransport/>}
+     </div>
++
+     )
+   }
+
+Index: src/component/Usager.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import UserPreview from \"./UserPreview\"\r\nimport FormUser from \"./FormUser\";\r\n\r\nfunction Usager() {\r\n    return (\r\n        <div>\r\n            <UserPreview/>\r\n            <hr/>\r\n            <FormUser/>\r\n        </div>\r\n    );\r\n}\r\n\r\nexport default Usager;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/component/Usager.js b/src/component/Usager.js
+--- a/src/component/Usager.js	(revision ce351171605e3c59ea4cb1119b91a3b7c7b64c61)
++++ b/src/component/Usager.js	(date 1610838450005)
+@@ -1,12 +1,24 @@
++import {useState} from "react"
+ import UserPreview from "./UserPreview"
+ import FormUser from "./FormUser";
++import FormMoyenDeTransport from "./FormMoyenDeTransport";
+
+ function Usager() {
++
++    const [formusagerHidden,setFormUsagerHidden] = useState(true)
++    const [formtransportHidden,setFormTransportHidden] = useState(true)
++
++
+     return (
+         <div>
++            <button className="btn btn-outline-info" style={{marginRight:15}} onClick={()=>setFormUsagerHidden(!formusagerHidden)}>Add Usager</button>
++            <button className="btn btn-outline-info">Add Transport</button>
++            <br/><br/>
+             <UserPreview/>
+             <hr/>
+-            <FormUser/>
++            {!formusagerHidden && <FormUser/>}
++            <hr/>
++            {!formtransportHidden && <FormMoyenDeTransport/>}
+         </div>
+     );
+ }
+Index: src/component/FormUser.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from 'react';\r\nimport Api from \"../api/call\"\r\n\r\nclass FormUser extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n        this.state = {\r\n            nom:\"\",\r\n            dateDeNaissance: \"\",\r\n            handicap: \"N\",\r\n            fonction: \"\"\r\n        }\r\n    }\r\n\r\n    changeHandler = (event) => {\r\n        this.setState({\r\n            [event.target.name]: event.target.value\r\n        })\r\n    }\r\n\r\n    addUserApi = () => {\r\n        const usager = {\r\n            nom:this.state.nom,\r\n            dateDeNaissance: this.state.dateDeNaissance,\r\n            handicap: this.state.handicap,\r\n            fonction: this.state.fonction\r\n        }\r\n        return Api.addUser(usager);\r\n    }\r\n\r\n    styles ={\r\n        input:{\r\n            borderRadius:5\r\n        }\r\n    }\r\n\r\n    render() {\r\n        return (\r\n            <div>\r\n                <table>\r\n                    <tr>\r\n                        <td>Nom</td>\r\n                        <input style={this.styles.input}\r\n                               name=\"nom\"\r\n                               value={this.nom}\r\n                               onChange={this.changeHandler}  type={\"text\"}/>\r\n                    </tr>\r\n                    <br/>\r\n                    <tr>\r\n                        <td>Age</td>\r\n                        <input style={this.styles.input}\r\n                            name=\"dateDeNaissance\"\r\n                            value={this.dateDeNaissance}\r\n                            onChange={this.changeHandler}  type={\"date\"}/>\r\n                    </tr>\r\n                    <br/>\r\n                    <tr>\r\n                        <td>Handicap</td>\r\n                        <td>\r\n                            <input  style={{...this.styles.input,marginInline: 30}}\r\n                                   name=\"handicap\"\r\n                                   value={this.handicap}\r\n                                   onChange={() =>\r\n                                       this.setState({handicap: \"O\"})} type={\"radio\"}/>\r\n                            <label>Oui</label>\r\n                            <input style={{...this.styles.input,marginInline: 30}}\r\n                                   name=\"handicap\"\r\n                                   value={this.handicap}\r\n                                   onChange={() =>\r\n                                       this.setState({handicap: \"N\"})} type={\"radio\"}/>\r\n                            <label>Non</label>\r\n                        </td>\r\n                    </tr>\r\n                    <br/>\r\n                    <tr>\r\n                        <td>Fonction</td>\r\n                        <input\r\n                            style={{...this.styles.input}}\r\n                            name=\"fonction\"\r\n                            value={this.fonction}\r\n                            onChange={this.changeHandler} type={\"text\"}/>\r\n                    </tr>\r\n                </table>\r\n                <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}}\r\n                        onClick={() => console.log(this.state)}>Afficher\r\n                </button>\r\n                <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={this.addUserApi}>Add\r\n                    user\r\n                </button>\r\n\r\n            </div>\r\n        );\r\n    }\r\n};\r\n\r\nexport default FormUser;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/component/FormUser.js b/src/component/FormUser.js
+--- a/src/component/FormUser.js	(revision ce351171605e3c59ea4cb1119b91a3b7c7b64c61)
++++ b/src/component/FormUser.js	(date 1610837609614)
+@@ -40,7 +40,7 @@
+                 <table>
+                     <tr>
+                         <td>Nom</td>
+-                        <input style={this.styles.input}
++                        <input className="form form-control" style={this.styles.input}
+                                name="nom"
+                                value={this.nom}
+                                onChange={this.changeHandler}  type={"text"}/>
+@@ -48,7 +48,7 @@
+                     <br/>
+                     <tr>
+                         <td>Age</td>
+-                        <input style={this.styles.input}
++                        <input className="form form-control" style={this.styles.input}
+                             name="dateDeNaissance"
+                             value={this.dateDeNaissance}
+                             onChange={this.changeHandler}  type={"date"}/>
+@@ -57,7 +57,7 @@
+                     <tr>
+                         <td>Handicap</td>
+                         <td>
+-                            <input  style={{...this.styles.input,marginInline: 30}}
++                            <input   style={{...this.styles.input,marginInline: 30}}
+                                    name="handicap"
+                                    value={this.handicap}
+                                    onChange={() =>
+@@ -74,17 +74,17 @@
+                     <br/>
+                     <tr>
+                         <td>Fonction</td>
+-                        <input
++                        <input className="form form-control"
+                             style={{...this.styles.input}}
+                             name="fonction"
+                             value={this.fonction}
+                             onChange={this.changeHandler} type={"text"}/>
+                     </tr>
+                 </table>
+-                <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}}
+-                        onClick={() => console.log(this.state)}>Afficher
+-                </button>
+-                <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={this.addUserApi}>Add
++                {/*<button style={{marginInline: 100, marginTop: 20, marginBottom: 20}}*/}
++                {/*        onClick={() => console.log(this.state)}>Afficher*/}
++                {/*</button>*/}
++                <button className="btn btn-info" style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={this.addUserApi}>Add
+                     user
+                 </button>
+
+Index: src/api/call.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\r\nconst neo4j = require('neo4j-driver')\r\n\r\nconst driver = neo4j.driver(\"bolt://localhost:7687\", neo4j.auth.basic(\"neo4j\", \"0000\"))\r\n// const session = driver.session()\r\nconst session = driver.session({database: \"neo4j\"});\r\nconst personName = 'Adnane'\r\n\r\nclass Api {\r\n\r\n    addUser = async (usager) => {\r\n        console.log(\"Usager\")\r\n        try {\r\n            const result = await session.run(\r\n                'CREATE (a:Usager {nomComplet:$nomComplet,dateDeNaissance: $dateDeNaissance,handicap: $handicap,fonction: $fonction}) RETURN a',\r\n                {\r\n                    nomComplet:usager.nom,\r\n                    dateDeNaissance: usager.dateDeNaissance,\r\n                    handicap: usager.handicap,\r\n                    fonction: usager.fonction\r\n                }\r\n            )\r\n\r\n            const singleRecord = result.records[0]\r\n            const node = singleRecord.get(0)\r\n\r\n        } finally {\r\n            await session.close()\r\n        }\r\n\r\n// on application exit:\r\n        await driver.close()\r\n    }\r\n\r\n    addMoyenDeTransport = async (moyenDeTransport) => {\r\n        try {\r\n            const result = await session.run(\r\n                'CREATE (a:MoyenDeTransport {type: $type,numero: $numero,constructeur: $constructeur, anneemiseenservice: $anneemiseenservice}) RETURN a',\r\n                {\r\n                    type: moyenDeTransport.type,\r\n                    numero: moyenDeTransport.numero,\r\n                    constructeur: moyenDeTransport.constructeur,\r\n                    anneemiseenservice: moyenDeTransport.anneemiseenservice\r\n\r\n                }\r\n            )\r\n\r\n            const singleRecord = result.records[0]\r\n            const node = singleRecord.get(0)\r\n\r\n            console.log(node.properties.name)\r\n        } finally {\r\n            await session.close()\r\n        }\r\n\r\n// on application exit:\r\n        await driver.close()\r\n    }\r\n\r\n}\r\n\r\nexport default new Api();\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/api/call.js b/src/api/call.js
+--- a/src/api/call.js	(revision ce351171605e3c59ea4cb1119b91a3b7c7b64c61)
++++ b/src/api/call.js	(date 1610835005433)
+@@ -1,7 +1,7 @@
+
+ const neo4j = require('neo4j-driver')
+
+-const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "0000"))
++const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
+ // const session = driver.session()
+ const session = driver.session({database: "neo4j"});
+ const personName = 'Adnane'
+Index: src/component/UserPreview.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from 'react';\r\nimport FormMoyenDeTransport from \"./FormMoyenDeTransport\";\r\n\r\nclass UserPreview extends Component{\r\n\r\n    state = {\r\n        usagers:[]\r\n    }\r\n    render() {\r\n        return(\r\n            <div className=\"container\">\r\n                {/*<p>{this.state.usagers}</p>*/}\r\n                <table className=\"table\">\r\n                    <thead className=\"thead-dark\">\r\n                    <tr>\r\n                        <th>Nom complet</th>\r\n                        <th>Handicap</th>\r\n                        <th>Fonction</th>\r\n                        <th>Date de naissance</th>\r\n                        <th>Action</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    {this.state.usagers.map(usager =>{\r\n                        return (<tr>\r\n                            <td className=\"align-middle\">{usager.properties.nomComplet}</td>\r\n                            <td className=\"align-middle\">{usager.properties.handicap}</td>\r\n                            {/*<td className=\"align-middle\">{usager.properties.dateDeNaissance.day}/{usager.properties.dateDeNaissance.month}/{usager.properties.dateDeNaissance.year}</td>*/}\r\n                            <td className=\"align-middle\">{usager.properties.fonction}</td>\r\n                            <td className=\"align-middle\"></td>\r\n                            <td>\r\n                                <button className=\"btn btn-info\">Update</button>\r\n                            </td>\r\n                        </tr>)\r\n                    })}\r\n                    </tbody>\r\n                </table>\r\n                <FormMoyenDeTransport/>\r\n            </div>\r\n        )\r\n    }\r\n\r\n    componentDidMount(){\r\n        this.getUsagers();\r\n    }\r\n\r\n    getUsagers = () => {\r\n        const neo4j = require('neo4j-driver')\r\n\r\n        const driver = neo4j.driver(\"bolt://localhost:7687\", neo4j.auth.basic(\"neo4j\", \"0000\"))\r\n        const session = driver.session({database: \"neo4j\"});\r\n        const query = `MATCH (n:Usager)-[r]->(m) return distinct n as usager`;\r\n\r\n        session.run(query)\r\n            .then((result) => {\r\n                result.records.forEach((record) => {\r\n                    var us=this.state.usagers;\r\n                    console.log(record.get('usager'));\r\n                    us.push(record.get('usager'))\r\n                    this.setState({\r\n                        usagers:us\r\n                    })\r\n                    console.log(this.state.usagers)\r\n                });\r\n                session.close();\r\n                driver.close();\r\n            })\r\n            .catch((error) => {\r\n                console.error(error);\r\n            });\r\n    }\r\n\r\n}\r\nexport default UserPreview\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/component/UserPreview.js b/src/component/UserPreview.js
+--- a/src/component/UserPreview.js	(revision ce351171605e3c59ea4cb1119b91a3b7c7b64c61)
++++ b/src/component/UserPreview.js	(date 1610838104980)
+@@ -4,7 +4,7 @@
+ class UserPreview extends Component{
+
+     state = {
+-        usagers:[]
++        usagers:[],
+     }
+     render() {
+         return(
+@@ -25,9 +25,8 @@
+                         return (<tr>
+                             <td className="align-middle">{usager.properties.nomComplet}</td>
+                             <td className="align-middle">{usager.properties.handicap}</td>
+-                            {/*<td className="align-middle">{usager.properties.dateDeNaissance.day}/{usager.properties.dateDeNaissance.month}/{usager.properties.dateDeNaissance.year}</td>*/}
+                             <td className="align-middle">{usager.properties.fonction}</td>
+-                            <td className="align-middle"></td>
++                            <td className="align-middle">{usager.properties.dateDeNaissance}</td>
+                             <td>
+                                 <button className="btn btn-info">Update</button>
+                             </td>
+@@ -35,7 +34,7 @@
+                     })}
+                     </tbody>
+                 </table>
+-                <FormMoyenDeTransport/>
++
+             </div>
+         )
+     }
+@@ -47,21 +46,21 @@
+     getUsagers = () => {
+         const neo4j = require('neo4j-driver')
+
+-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "0000"))
++        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
+         const session = driver.session({database: "neo4j"});
+-        const query = `MATCH (n:Usager)-[r]->(m) return distinct n as usager`;
+-
++        const query = `MATCH (n:Usager) return distinct n as usager`;
++        var us=this.state.usagers;
+         session.run(query)
+             .then((result) => {
+-                result.records.forEach((record) => {
+-                    var us=this.state.usagers;
+-                    console.log(record.get('usager'));
++                result.records.forEach((record,key) => {
++                    //console.log(record.get('usager'));
+                     us.push(record.get('usager'))
+-                    this.setState({
+-                        usagers:us
+-                    })
+-                    console.log(this.state.usagers)
+-                });
++
++                    //console.log(this.state.usagers[key].properties)
++                });
++                this.setState({
++                    usagers:us
++                })
+                 session.close();
+                 driver.close();
+             })
+Index: .eslintcache
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[{\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\index.js\":\"1\",\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\reportWebVitals.js\":\"2\",\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\App.js\":\"3\",\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\component\\\\MoyenDeTransport.js\":\"4\",\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\component\\\\Usager.js\":\"5\",\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\screens\\\\Home.js\":\"6\",\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\component\\\\FormUser.js\":\"7\",\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\api\\\\call.js\":\"8\",\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\component\\\\UserPreview.js\":\"9\",\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\component\\\\FormMoyenDeTransport.js\":\"10\"},{\"size\":517,\"mtime\":1610822450990,\"results\":\"11\",\"hashOfConfig\":\"12\"},{\"size\":375,\"mtime\":1610822450993,\"results\":\"13\",\"hashOfConfig\":\"12\"},{\"size\":324,\"mtime\":1610832694985,\"results\":\"14\",\"hashOfConfig\":\"12\"},{\"size\":496,\"mtime\":1610832694987,\"results\":\"15\",\"hashOfConfig\":\"12\"},{\"size\":254,\"mtime\":1610830976699,\"results\":\"16\",\"hashOfConfig\":\"12\"},{\"size\":557,\"mtime\":1610831614077,\"results\":\"17\",\"hashOfConfig\":\"12\"},{\"size\":3364,\"mtime\":1610834334912,\"results\":\"18\",\"hashOfConfig\":\"12\"},{\"size\":1925,\"mtime\":1610834436315,\"results\":\"19\",\"hashOfConfig\":\"12\"},{\"size\":2747,\"mtime\":1610834061938,\"results\":\"20\",\"hashOfConfig\":\"12\"},{\"size\":2283,\"mtime\":1610834740182,\"results\":\"21\",\"hashOfConfig\":\"12\"},{\"filePath\":\"22\",\"messages\":\"23\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"usedDeprecatedRules\":\"24\"},\"4ull6q\",{\"filePath\":\"25\",\"messages\":\"26\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"usedDeprecatedRules\":\"24\"},{\"filePath\":\"27\",\"messages\":\"28\",\"errorCount\":0,\"warningCount\":1,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"source\":\"29\",\"usedDeprecatedRules\":\"24\"},{\"filePath\":\"30\",\"messages\":\"31\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"usedDeprecatedRules\":\"24\"},{\"filePath\":\"32\",\"messages\":\"33\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"usedDeprecatedRules\":\"24\"},{\"filePath\":\"34\",\"messages\":\"35\",\"errorCount\":0,\"warningCount\":1,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"source\":\"36\",\"usedDeprecatedRules\":\"37\"},{\"filePath\":\"38\",\"messages\":\"39\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},{\"filePath\":\"40\",\"messages\":\"41\",\"errorCount\":0,\"warningCount\":2,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"source\":null},{\"filePath\":\"42\",\"messages\":\"43\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},{\"filePath\":\"44\",\"messages\":\"45\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\index.js\",[],[\"46\",\"47\"],\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\reportWebVitals.js\",[],\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\App.js\",[\"48\"],\"import './App.css';\\r\\nimport Usager from './component/Usager'\\r\\nimport moyenDeTransport from './component/MoyenDeTransport'\\r\\n// import Home from \\\"./screens/Home\\\";\\r\\nfunction App() {\\r\\n  return (\\r\\n    <div className=\\\"container\\\">\\r\\n        <h3>Neo4j App</h3><hr/>\\r\\n        <Usager/>\\r\\n    </div>\\r\\n  );\\r\\n}\\r\\n\\r\\nexport default App;\\r\\n\",\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\component\\\\MoyenDeTransport.js\",[],\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\component\\\\Usager.js\",[],\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\screens\\\\Home.js\",[\"49\"],\"import React, {Component} from 'react';\\r\\nimport Api from \\\"../api/call\\\"\\r\\nimport FormUser from \\\"../component/FormUser\\\";\\r\\nclass Home extends Component {\\r\\n\\r\\n    constructor(props) {\\r\\n        super(props);\\r\\n    }\\r\\n\\r\\n    callApi = ()=>{\\r\\n        return Api.call();\\r\\n    }\\r\\n\\r\\n    getApi = ()=>{\\r\\n        return Api.getUsagers();\\r\\n\\r\\n    }\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n    render() {\\r\\n        return (\\r\\n            <div>\\r\\n                <FormUser/>\\r\\n\\r\\n                <button onClick={this.getApi} >Get usagers</button>\\r\\n            </div>\\r\\n        );\\r\\n    }\\r\\n}\\r\\n\\r\\nexport default Home;\\r\\n\",[\"50\",\"51\"],\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\component\\\\FormUser.js\",[],\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\api\\\\call.js\",[\"52\",\"53\"],\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\component\\\\UserPreview.js\",[],\"C:\\\\Users\\\\ASUS\\\\Documents\\\\neo4j_js\\\\src\\\\component\\\\FormMoyenDeTransport.js\",[],{\"ruleId\":\"54\",\"replacedBy\":\"55\"},{\"ruleId\":\"56\",\"replacedBy\":\"57\"},{\"ruleId\":\"58\",\"severity\":1,\"message\":\"59\",\"line\":3,\"column\":8,\"nodeType\":\"60\",\"messageId\":\"61\",\"endLine\":3,\"endColumn\":24},{\"ruleId\":\"62\",\"severity\":1,\"message\":\"63\",\"line\":6,\"column\":5,\"nodeType\":\"64\",\"messageId\":\"65\",\"endLine\":8,\"endColumn\":6},{\"ruleId\":\"54\",\"replacedBy\":\"66\"},{\"ruleId\":\"56\",\"replacedBy\":\"67\"},{\"ruleId\":\"58\",\"severity\":1,\"message\":\"68\",\"line\":7,\"column\":7,\"nodeType\":\"60\",\"messageId\":\"61\",\"endLine\":7,\"endColumn\":17},{\"ruleId\":\"58\",\"severity\":1,\"message\":\"69\",\"line\":25,\"column\":19,\"nodeType\":\"60\",\"messageId\":\"61\",\"endLine\":25,\"endColumn\":23},\"no-native-reassign\",[\"70\"],\"no-negated-in-lhs\",[\"71\"],\"no-unused-vars\",\"'moyenDeTransport' is defined but never used.\",\"Identifier\",\"unusedVar\",\"no-useless-constructor\",\"Useless constructor.\",\"MethodDefinition\",\"noUselessConstructor\",[\"70\"],[\"71\"],\"'personName' is assigned a value but never used.\",\"'node' is assigned a value but never used.\",\"no-global-assign\",\"no-unsafe-negation\"]
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.eslintcache b/.eslintcache
+--- a/.eslintcache	(revision ce351171605e3c59ea4cb1119b91a3b7c7b64c61)
++++ b/.eslintcache	(date 1610838450281)
+@@ -1,1 +1,1 @@
+-[{"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\index.js":"1","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\reportWebVitals.js":"2","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\App.js":"3","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\MoyenDeTransport.js":"4","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\Usager.js":"5","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\screens\\Home.js":"6","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\FormUser.js":"7","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\api\\call.js":"8","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\UserPreview.js":"9","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\FormMoyenDeTransport.js":"10"},{"size":517,"mtime":1610822450990,"results":"11","hashOfConfig":"12"},{"size":375,"mtime":1610822450993,"results":"13","hashOfConfig":"12"},{"size":324,"mtime":1610832694985,"results":"14","hashOfConfig":"12"},{"size":496,"mtime":1610832694987,"results":"15","hashOfConfig":"12"},{"size":254,"mtime":1610830976699,"results":"16","hashOfConfig":"12"},{"size":557,"mtime":1610831614077,"results":"17","hashOfConfig":"12"},{"size":3364,"mtime":1610834334912,"results":"18","hashOfConfig":"12"},{"size":1925,"mtime":1610834436315,"results":"19","hashOfConfig":"12"},{"size":2747,"mtime":1610834061938,"results":"20","hashOfConfig":"12"},{"size":2283,"mtime":1610834740182,"results":"21","hashOfConfig":"12"},{"filePath":"22","messages":"23","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"24"},"4ull6q",{"filePath":"25","messages":"26","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"24"},{"filePath":"27","messages":"28","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":"29","usedDeprecatedRules":"24"},{"filePath":"30","messages":"31","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"24"},{"filePath":"32","messages":"33","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"24"},{"filePath":"34","messages":"35","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":"36","usedDeprecatedRules":"37"},{"filePath":"38","messages":"39","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"40","messages":"41","errorCount":0,"warningCount":2,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"42","messages":"43","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"44","messages":"45","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\index.js",[],["46","47"],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\reportWebVitals.js",[],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\App.js",["48"],"import './App.css';\r\nimport Usager from './component/Usager'\r\nimport moyenDeTransport from './component/MoyenDeTransport'\r\n// import Home from \"./screens/Home\";\r\nfunction App() {\r\n  return (\r\n    <div className=\"container\">\r\n        <h3>Neo4j App</h3><hr/>\r\n        <Usager/>\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default App;\r\n","C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\MoyenDeTransport.js",[],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\Usager.js",[],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\screens\\Home.js",["49"],"import React, {Component} from 'react';\r\nimport Api from \"../api/call\"\r\nimport FormUser from \"../component/FormUser\";\r\nclass Home extends Component {\r\n\r\n    constructor(props) {\r\n        super(props);\r\n    }\r\n\r\n    callApi = ()=>{\r\n        return Api.call();\r\n    }\r\n\r\n    getApi = ()=>{\r\n        return Api.getUsagers();\r\n\r\n    }\r\n\r\n\r\n\r\n\r\n    render() {\r\n        return (\r\n            <div>\r\n                <FormUser/>\r\n\r\n                <button onClick={this.getApi} >Get usagers</button>\r\n            </div>\r\n        );\r\n    }\r\n}\r\n\r\nexport default Home;\r\n",["50","51"],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\FormUser.js",[],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\api\\call.js",["52","53"],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\UserPreview.js",[],"C:\\Users\\ASUS\\Documents\\neo4j_js\\src\\component\\FormMoyenDeTransport.js",[],{"ruleId":"54","replacedBy":"55"},{"ruleId":"56","replacedBy":"57"},{"ruleId":"58","severity":1,"message":"59","line":3,"column":8,"nodeType":"60","messageId":"61","endLine":3,"endColumn":24},{"ruleId":"62","severity":1,"message":"63","line":6,"column":5,"nodeType":"64","messageId":"65","endLine":8,"endColumn":6},{"ruleId":"54","replacedBy":"66"},{"ruleId":"56","replacedBy":"67"},{"ruleId":"58","severity":1,"message":"68","line":7,"column":7,"nodeType":"60","messageId":"61","endLine":7,"endColumn":17},{"ruleId":"58","severity":1,"message":"69","line":25,"column":19,"nodeType":"60","messageId":"61","endLine":25,"endColumn":23},"no-native-reassign",["70"],"no-negated-in-lhs",["71"],"no-unused-vars","'moyenDeTransport' is defined but never used.","Identifier","unusedVar","no-useless-constructor","Useless constructor.","MethodDefinition","noUselessConstructor",["70"],["71"],"'personName' is assigned a value but never used.","'node' is assigned a value but never used.","no-global-assign","no-unsafe-negation"]
+\ No newline at end of file
++[{"C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\index.js":"1","C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\reportWebVitals.js":"2","C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\App.js":"3","C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\component\\Usager.js":"4","C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\component\\MoyenDeTransport.js":"5","C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\component\\UserPreview.js":"6","C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\component\\FormUser.js":"7","C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\api\\call.js":"8","C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\component\\FormMoyenDeTransport.js":"9"},{"size":517,"mtime":1610833244162,"results":"10","hashOfConfig":"11"},{"size":375,"mtime":1610833244163,"results":"12","hashOfConfig":"11"},{"size":887,"mtime":1610837724555,"results":"13","hashOfConfig":"11"},{"size":850,"mtime":1610838450005,"results":"14","hashOfConfig":"11"},{"size":496,"mtime":1610833244159,"results":"15","hashOfConfig":"11"},{"size":2543,"mtime":1610838104981,"results":"16","hashOfConfig":"11"},{"size":3498,"mtime":1610837609614,"results":"17","hashOfConfig":"11"},{"size":1925,"mtime":1610835005433,"results":"18","hashOfConfig":"11"},{"size":2283,"mtime":1610834945651,"results":"19","hashOfConfig":"11"},{"filePath":"20","messages":"21","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"1qk1lxn",{"filePath":"22","messages":"23","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"24","messages":"25","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"26","messages":"27","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"28","messages":"29","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":"30","usedDeprecatedRules":"31"},{"filePath":"32","messages":"33","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"31"},{"filePath":"34","messages":"35","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"36","messages":"37","errorCount":0,"warningCount":2,"fixableErrorCount":0,"fixableWarningCount":0,"source":"38","usedDeprecatedRules":"31"},{"filePath":"39","messages":"40","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"31"},"C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\index.js",[],"C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\reportWebVitals.js",[],"C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\App.js",["41"],"C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\component\\Usager.js",["42"],"C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\component\\MoyenDeTransport.js",["43"],"import React, {Component} from 'react';\r\nimport Api from \"../api/call\"\r\n\r\nclass MoyenDeTransport extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n        this.state = {\r\n            age: \"\",\r\n            handicap: \"false\",\r\n            fonction: \"\"\r\n        }\r\n    }\r\n\r\n   \r\n\r\n \r\n    \r\n    render() {\r\n        return (\r\n            <div>\r\n               <h3>Adnane M'barki is the best</h3><hr/>\r\n            </div>\r\n        );\r\n    }\r\n};\r\n\r\nexport default MoyenDeTransport;\r\n",["44","45"],"C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\component\\UserPreview.js",[],"C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\component\\FormUser.js",[],"C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\api\\call.js",["46","47"],"\r\nconst neo4j = require('neo4j-driver')\r\n\r\nconst driver = neo4j.driver(\"bolt://localhost:7687\", neo4j.auth.basic(\"neo4j\", \"1923\"))\r\n// const session = driver.session()\r\nconst session = driver.session({database: \"neo4j\"});\r\nconst personName = 'Adnane'\r\n\r\nclass Api {\r\n\r\n    addUser = async (usager) => {\r\n        console.log(\"Usager\")\r\n        try {\r\n            const result = await session.run(\r\n                'CREATE (a:Usager {nomComplet:$nomComplet,dateDeNaissance: $dateDeNaissance,handicap: $handicap,fonction: $fonction}) RETURN a',\r\n                {\r\n                    nomComplet:usager.nom,\r\n                    dateDeNaissance: usager.dateDeNaissance,\r\n                    handicap: usager.handicap,\r\n                    fonction: usager.fonction\r\n                }\r\n            )\r\n\r\n            const singleRecord = result.records[0]\r\n            const node = singleRecord.get(0)\r\n\r\n        } finally {\r\n            await session.close()\r\n        }\r\n\r\n// on application exit:\r\n        await driver.close()\r\n    }\r\n\r\n    addMoyenDeTransport = async (moyenDeTransport) => {\r\n        try {\r\n            const result = await session.run(\r\n                'CREATE (a:MoyenDeTransport {type: $type,numero: $numero,constructeur: $constructeur, anneemiseenservice: $anneemiseenservice}) RETURN a',\r\n                {\r\n                    type: moyenDeTransport.type,\r\n                    numero: moyenDeTransport.numero,\r\n                    constructeur: moyenDeTransport.constructeur,\r\n                    anneemiseenservice: moyenDeTransport.anneemiseenservice\r\n\r\n                }\r\n            )\r\n\r\n            const singleRecord = result.records[0]\r\n            const node = singleRecord.get(0)\r\n\r\n            console.log(node.properties.name)\r\n        } finally {\r\n            await session.close()\r\n        }\r\n\r\n// on application exit:\r\n        await driver.close()\r\n    }\r\n\r\n}\r\n\r\nexport default new Api();\r\n\r\n","C:\\Users\\alima\\Desktop\\Benhlima\\neo4j_js.git\\src\\component\\FormMoyenDeTransport.js",[],{"ruleId":"48","severity":1,"message":"49","line":4,"column":8,"nodeType":"50","messageId":"51","endLine":4,"endColumn":24},{"ruleId":"48","severity":1,"message":"52","line":9,"column":32,"nodeType":"50","messageId":"51","endLine":9,"endColumn":54},{"ruleId":"48","severity":1,"message":"53","line":2,"column":8,"nodeType":"50","messageId":"51","endLine":2,"endColumn":11},{"ruleId":"54","replacedBy":"55"},{"ruleId":"56","replacedBy":"57"},{"ruleId":"48","severity":1,"message":"58","line":7,"column":7,"nodeType":"50","messageId":"51","endLine":7,"endColumn":17},{"ruleId":"48","severity":1,"message":"59","line":25,"column":19,"nodeType":"50","messageId":"51","endLine":25,"endColumn":23},"no-unused-vars","'moyenDeTransport' is defined but never used.","Identifier","unusedVar","'setFormTransportHidden' is assigned a value but never used.","'Api' is defined but never used.","no-native-reassign",["60"],"no-negated-in-lhs",["61"],"'personName' is assigned a value but never used.","'node' is assigned a value but never used.","no-global-assign","no-unsafe-negation"]
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"f3a3a227-6d6c-4139-aebe-94ba1dc60302\" name=\"Default Changelist\" comment=\"formMoyenDeTransport\">\r\n      <change beforePath=\"$PROJECT_DIR$/.eslintcache\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.eslintcache\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/api/call.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/api/call.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/component/FormMoyenDeTransport.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/component/FormMoyenDeTransport.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/component/FormUser.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/component/FormUser.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/component/UserPreview.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/component/UserPreview.js\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1n9pYxsFzjXcGTQMl80Lkm78WAd\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"dart.analysis.tool.window.visible\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$USER_HOME$/Desktop/Projet Diouri\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.standard\" value=\"true\" />\r\n    <property name=\"node.js.path.for.package.eslint\" value=\"project\" />\r\n    <property name=\"node.js.path.for.package.standard\" value=\"project\" />\r\n    <property name=\"node.js.path.for.package.tslint\" value=\"project\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.standard\" value=\"\" />\r\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\r\n    <property name=\"nodejs_interpreter_path\" value=\"node\" />\r\n    <property name=\"nodejs_interpreter_path.stuck_in_default_project\" value=\"undefined stuck path\" />\r\n    <property name=\"nodejs_npm_path_reset_for_default_project\" value=\"true\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"CodeWithMe\" />\r\n    <property name=\"ts.external.directory.path\" value=\"C:\\Program Files\\JetBrains\\WebStorm 2020.2.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external\" />\r\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"npm.npm start\">\r\n    <configuration default=\"true\" type=\"ArquillianJUnit\" factoryName=\"\" nameIsGenerated=\"true\">\r\n      <option name=\"arquillianRunConfiguration\">\r\n        <value>\r\n          <option name=\"containerStateName\" value=\"\" />\r\n        </value>\r\n      </option>\r\n      <option name=\"TEST_OBJECT\" value=\"class\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Debug Application\" type=\"JavascriptDebugType\" uri=\"http://localhost:3000\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"npm start\" type=\"js.build_tools.npm\">\r\n      <package-json value=\"$PROJECT_DIR$/package.json\" />\r\n      <command value=\"run\" />\r\n      <scripts>\r\n        <script value=\"start\" />\r\n      </scripts>\r\n      <node-interpreter value=\"project\" />\r\n      <envs />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"f3a3a227-6d6c-4139-aebe-94ba1dc60302\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1610812211503</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1610812211503</updated>\r\n      <workItem from=\"1610812212797\" duration=\"1761000\" />\r\n      <workItem from=\"1610816677641\" duration=\"1822000\" />\r\n      <workItem from=\"1610819378715\" duration=\"270000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"commit\">\r\n      <created>1610820877750</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1610820877750</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"commit\">\r\n      <created>1610830067163</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1610830067163</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"commit\">\r\n      <created>1610830489358</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1610830489358</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"commit\">\r\n      <created>1610830949580</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1610830949580</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"formMoyenDeTransport\">\r\n      <created>1610831730232</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1610831730232</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"formMoyenDeTransport\">\r\n      <created>1610832838968</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1610832838969</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"formMoyenDeTransport\">\r\n      <created>1610832896287</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1610832896287</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"8\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"add Form User\" />\r\n    <MESSAGE value=\"commit\" />\r\n    <MESSAGE value=\"formMoyenDeTransport\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"formMoyenDeTransport\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision ce351171605e3c59ea4cb1119b91a3b7c7b64c61)
++++ b/.idea/workspace.xml	(date 1610838034645)
+@@ -3,10 +3,17 @@
+   <component name="ChangeListManager">
+     <list default="true" id="f3a3a227-6d6c-4139-aebe-94ba1dc60302" name="Default Changelist" comment="formMoyenDeTransport">
+       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_20_04__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_20_04__Default_Changelist_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_20_36__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_20_36__Default_Changelist_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_22_02__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_22_02__Default_Changelist_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_22_02__Default_Changelist_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_22_02__Default_Changelist_1.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_22_13__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_22_13__Default_Changelist_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_22_31__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_01_2021_22_31__Default_Changelist_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/api/call.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/call.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/component/FormMoyenDeTransport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/FormMoyenDeTransport.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/component/FormUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/FormUser.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/component/Usager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/Usager.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/component/UserPreview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/UserPreview.js" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -30,7 +37,7 @@
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="dart.analysis.tool.window.visible" value="false" />
+-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Projet Diouri" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Projet Diouri" />
+     <property name="node.js.detected.package.eslint" value="true" />
+     <property name="node.js.detected.package.standard" value="true" />
+     <property name="node.js.path.for.package.eslint" value="project" />
+@@ -84,6 +91,7 @@
+       <workItem from="1610812212797" duration="1761000" />
+       <workItem from="1610816677641" duration="1822000" />
+       <workItem from="1610819378715" duration="270000" />
++      <workItem from="1610833247410" duration="1288000" />
+     </task>
+     <task id="LOCAL-00001" summary="commit">
+       <created>1610820877750</created>
