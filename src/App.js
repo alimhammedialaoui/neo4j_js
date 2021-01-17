@@ -4,12 +4,14 @@ import {useState} from "react"
 import moyenDeTransport from './component/MoyenDeTransport'
 import MoyenDeTransport from "./component/MoyenDeTransport";
 import ShortestPath from "./component/ShortestPath";
+import StationsTransit from "./component/StationsTransit";
 // import Home from "./screens/Home";
 function App() {
 
     const [usagerHidden,setUsagerHidden] = useState(true)
     const [transportHidden,setTransportHidden] = useState(true)
     const [shortestPathHidden,setShortestPathHidden] = useState(true)
+    const [stationTransitHidden,setStationTransitHidden] = useState(true)
 
   return (
     <div className="container">
@@ -20,6 +22,8 @@ function App() {
         {!transportHidden && <MoyenDeTransport/>}
         <button className="btn btn-outline-dark" onClick={()=>setShortestPathHidden(!shortestPathHidden)}>Cours chemin</button><br/><br/>
         {!shortestPathHidden && <ShortestPath/>}
+        <button className="btn btn-outline-dark" onClick={()=>setStationTransitHidden(!stationTransitHidden)}>Station de transit</button><br/><br/>
+        {!stationTransitHidden && <StationsTransit/>}
     </div>
 
     )
