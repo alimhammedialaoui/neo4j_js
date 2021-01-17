@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import StationsTransitPreview from "./StationsTransitPreview";
+import AddPreferenceTransport from "./AddPreferenceTransport";
 
 class StationsTransit extends Component{
-    neo4j = require('neo4j-driver');
-    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "1234"));
-    session = this.driver.session({database: "neo4j"});
 
     state={
         stations1:[],
@@ -15,8 +13,11 @@ class StationsTransit extends Component{
     }
 
     getStations=()=>{
+        const neo4j = require('neo4j-driver');
+        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"));
+        const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:Station) return distinct n as stations`;
-        this.session.run(query)
+        session.run(query)
             .then((result) => {
                 result.records.forEach((record) => {
                     var st1=this.state.stations1;
@@ -30,8 +31,8 @@ class StationsTransit extends Component{
                         stations2:st2
                     })
                 });
-                this.session.close();
-                this.driver.close();
+                session.close();
+                driver.close();
             })
             .catch((error) => {
                 console.error(error);
@@ -45,7 +46,8 @@ class StationsTransit extends Component{
 
     render(){
         return (
-            <div>
+            <div className="container">
+                <h4>Afficher stations transit</h4><hr/>
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="inputDepart">Station de depart</label>
@@ -72,7 +74,14 @@ class StationsTransit extends Component{
                     </div>
                 </div>
                 <button className="btn btn-primary col-md-2" onClick={()=>{this.setState({showTransitStations:true})}}>Parcourir</button>
-                {this.state.showTransitStations && <StationsTransitPreview stationDepart={this.state.stationDepart} stationArrivee={this.state.stationArrivee}/>}
+                {
+                    this.state.showTransitStations &&
+                    <StationsTransitPreview
+                        stationDepart={this.state.stationDepart}
+                        stationArrivee={this.state.stationArrivee}
+                        link={this.props.link}
+                        username={this.props.username}
+                        password={this.props.password}/>}
             </div>
         )
     }

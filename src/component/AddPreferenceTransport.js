@@ -2,7 +2,6 @@ import React,{Component} from "react";
 
 class AddPreferenceTransport extends Component{
 
-
     constructor(props) {
         super(props);
         this.state={
@@ -17,9 +16,8 @@ class AddPreferenceTransport extends Component{
 
     getMoyenTransport = () => {
         const neo4j = require('neo4j-driver')
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
+        const driver = neo4j.driver(this.props.link, neo4j.auth.basic(this.props.username, this.props.password))
         const session = driver.session({database: "neo4j"});
-
         const query = `MATCH (n:MoyenTransport) RETURN n  as moyentransport`;
         session.run(query)
             .then((result) => {
@@ -82,11 +80,9 @@ class AddPreferenceTransport extends Component{
 
     postPreference= async()=>{
         const neo4j = require('neo4j-driver')
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
+        const driver = neo4j.driver(this.props.link, neo4j.auth.basic(this.props.username, this.props.password))
         const session = driver.session({database: "neo4j"});
         try {
-      
-
             await session.run(
                 `MATCH (a:Usager),(b:MoyenTransport) 
                 WHERE a.cin= $CIN AND b.no = $NO

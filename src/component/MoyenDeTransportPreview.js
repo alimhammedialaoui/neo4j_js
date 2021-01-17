@@ -6,9 +6,7 @@ import AddStation from "./AddStation";
 
 
 class MoyenDeTransportPreview extends Component {
-    neo4j = require('neo4j-driver')
-   driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "1234"))
-     session = this.driver.session({database: "neo4j"});
+
         state = {
             moyens:[],
             stations:[],
@@ -78,9 +76,11 @@ class MoyenDeTransportPreview extends Component {
     }
 
     getUsagers = () => {
-     
+        const neo4j = require('neo4j-driver')
+        const driver = neo4j.driver(this.props.link, neo4j.auth.basic(this.props.username, this.props.password))
+        const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:MoyenTransport) return distinct n as moyen`;
-        this.session.run(query)
+        session.run(query)
             .then((result) => {
                 result.records.forEach((record) => {
                     var us=this.state.moyens;
@@ -91,8 +91,8 @@ class MoyenDeTransportPreview extends Component {
                     })
                     console.log(this.state.moyens)
                 });
-                this.session.close();
-                this.driver.close();
+                session.close();
+                driver.close();
             })
             .catch((error) => {
                 console.error(error);

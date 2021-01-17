@@ -6,6 +6,10 @@ import ShortestPath from "./component/ShortestPath";
 import StationsTransit from "./component/StationsTransit";
 function App() {
 
+    const link = "bolt://localhost:7687";
+    const username = "neo4j";
+    const password = "1234";
+
     const [usagerHidden,setUsagerHidden] = useState(true)
     const [transportHidden,setTransportHidden] = useState(true)
     const [shortestPathHidden,setShortestPathHidden] = useState(true)
@@ -14,14 +18,17 @@ function App() {
   return (
     <div className="container">
         <h3>Neo4j App</h3><hr/>
-        <button className="btn btn-outline-dark" onClick={()=>setUsagerHidden(!usagerHidden)}>Afficher Usager</button><br/><br/>
-        {!usagerHidden && <Usager/>}
-        <button className="btn btn-outline-dark" onClick={()=>setTransportHidden(!transportHidden)}>Afficher Transport</button><br/><br/>
-        {!transportHidden && <MoyenDeTransport/>}
-        <button className="btn btn-outline-dark" onClick={()=>setShortestPathHidden(!shortestPathHidden)}>Cours chemin</button><br/><br/>
-        {!shortestPathHidden && <ShortestPath/>}
-        <button className="btn btn-outline-dark" onClick={()=>setStationTransitHidden(!stationTransitHidden)}>Station de transit</button><br/><br/>
-        {!stationTransitHidden && <StationsTransit/>}
+        <button className="btn btn-outline-dark col-md-2" onClick={()=>setUsagerHidden(!usagerHidden)}>Afficher Usager</button>
+        <span className="col-md-2"></span>
+        <button className="btn btn-outline-dark col-md-2" onClick={()=>setTransportHidden(!transportHidden)}>Afficher Transport</button>
+        <span className="col-md-2"></span>
+        <button className="btn btn-outline-dark col-md-2" onClick={()=>setShortestPathHidden(!shortestPathHidden)}>Cours chemin</button>
+        <span className="col-md-2"></span>
+        <button className="btn btn-outline-dark col-md-2" onClick={()=>setStationTransitHidden(!stationTransitHidden)}>Station de transit</button><br/><hr/>
+        {!usagerHidden && <Usager link={link} username={username} password={password}/>}
+        {!transportHidden && <MoyenDeTransport link={link} username={username} password={password}/>}
+        {!shortestPathHidden && <ShortestPath link={link} username={username} password={password}/>}
+        {!stationTransitHidden && <StationsTransit link={link} username={username} password={password}/>}
     </div>
     )
   }

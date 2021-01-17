@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import FormMoyenDeTransport from "./FormMoyenDeTransport";
 import MoyenDeTransportPreview from "./MoyenDeTransportPreview";
+import FormUser from "./FormUser";
 
 class MoyenDeTransport extends Component {
     constructor(props) {
@@ -15,15 +16,15 @@ class MoyenDeTransport extends Component {
 
     render() {
         return (
-            <div>
-               <h3>Adnane M'barki is the best</h3><hr/>
+            <div className="container">
+                <h4>Afficher transport</h4><hr/>
                 <button className="btn btn-outline-info" onClick={()=>this.setState({
                     formtransportHidden:!this.state.formtransportHidden
                 })}>Add Transport</button>
                     <br/><br/>
-            <MoyenDeTransportPreview/>
+            <MoyenDeTransportPreview link={this.props.link} username={this.props.username} password={this.props.password}/>
                 <hr/>
-                {this.state.formtransportHidden && <FormMoyenDeTransport/>}
+                {this.state.formtransportHidden && <FormMoyenDeTransport link={this.props.link} username={this.props.username} password={this.props.password}/>}
             </div>
         );
     }

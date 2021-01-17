@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 
 class StationsTransitPreview extends Component{
-    neo4j = require('neo4j-driver');
-    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "1234"));
-    session = this.driver.session({database: "neo4j"});
 
     state={
         stationsTransit:[],
@@ -15,9 +12,10 @@ class StationsTransitPreview extends Component{
     }
 
     getStationTransit= async ()=>{
-        console.log(this.props.stationDepart)
-        console.log(this.props.stationArrivee)
-        await this.session.run(
+        const neo4j = require('neo4j-driver');
+        const driver = neo4j.driver(this.props.link, neo4j.auth.basic(this.props.username, this.props.password))
+        const session = driver.session({database: "neo4j"});
+        await session.run(
             `match p=(BEGIN:Station)-[:FOLLOWED_BY*]->(END:Station)
             where BEGIN.nom =$DEPART AND END.nom=$ARRIVEE
             return [n in nodes(p)|n.nom] as chemin,reduce(dis=0, u in relationships(p)| dis +(u.distance)) as distance`,
@@ -36,8 +34,8 @@ class StationsTransitPreview extends Component{
             .catch((error) => {
                 console.error(error);
             });
-        await this.session.close();
-        await this.driver.close();
+        await session.close();
+        await driver.close();
     }
 
     render(){

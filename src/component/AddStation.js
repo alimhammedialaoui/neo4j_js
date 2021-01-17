@@ -86,11 +86,12 @@ class AddStation extends Component{
         const neo4j = require('neo4j-driver')
         const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
         const session = driver.session({database: "neo4j"});
+        console.log("heyy")
         try {
+            console.log("heyy")
             await session.run(
-                `MATCH (a:Stastion),(b:MoyenTransport) 
-                WHERE a.nom= $nom AND b.type = $type
-                CREATE (b)-[r:STOPS_AT { heureArriv: $heure}]->(a)
+                `MATCH (a:Station{nom:'Station Abdelmoumen'}),(b:MoyenTransport{type:'Covoiturage'}) 
+                CREATE (b)-[r:STOPS_AT{heureArriv:time("16:00:00")}]->(a)
                 RETURN r.heureArriv`,
                 {
                     type: this.props.MoyenSelected,
@@ -98,6 +99,7 @@ class AddStation extends Component{
                     heure: this.state.heure
                 }
             )
+           
             console.log(this.state.selectedMT)
 
 
