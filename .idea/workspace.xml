@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="73dce971-0739-442a-8ada-2dd43c463289" name="Default Changelist" comment="">
+    <list default="true" id="73dce971-0739-442a-8ada-2dd43c463289" name="Default Changelist" comment="formMoyenDeTransport">
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/AddPreferenceTransport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/AddPreferenceTransport.js" afterDir="false" />
@@ -15,6 +15,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="2" />
   </component>
   <component name="ProjectId" id="1n9pYxsFzjXcGTQMl80Lkm78WAd" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -148,14 +151,7 @@
       <option name="project" value="LOCAL" />
       <updated>1610840944016</updated>
     </task>
-    <task id="LOCAL-00010" summary="formMoyenDeTransport">
-      <created>1610843164892</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1610843164892</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

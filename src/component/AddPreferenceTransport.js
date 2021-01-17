@@ -1,21 +1,18 @@
 import React,{Component} from "react";
+
 class AddPreferenceTransport extends Component{
-    state={
-        moyenTransport:[],
-        nomUsager:""
-    }
 
     constructor(props) {
-        super();
-        this.setState({
-            nomUsager:props.nomUsager
-        })
+        super(props);
+        this.state={
+            moyenTransport:[],
+            usager:props.usagerSelected
+        }
     }
-
 
     getMoyenTransport = () => {
         const neo4j = require('neo4j-driver')
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
+        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
         const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:MoyenTransport) RETURN n  as moyentransport`;
         session.run(query)
@@ -40,26 +37,45 @@ class AddPreferenceTransport extends Component{
     componentDidMount(){
         this.getMoyenTransport()
     }
+
     render(){
         return(
             <div>
-                <p>{this.state.nomUsager}</p>
-                <select className="form form-control-sm">
-                    {this.state.moyenTransport.map(mt=>{
-                        return(
-                            <option>{mt.properties.type}</option>
-                        )
-                    })}
-                </select>
-                <select className="form form-control-sm">
-                    <option>0</option>
-                    <option>1</option>
-                    <option>2</option>
-                </select>
+                <div className="form-row">
+                    {/*<p>{this.state.usager.properties.nomComplet}</p>*/}
+                    <div className="form-group col-md-4">
+                        <label>Usager</label>
+                        <input type="text" value={this.state.usager.properties.nomComplet} disabled="true"
+                               className="form-control"/>
+                    </div>
+                    <div className="form-group col-md-3">
+                        <label htmlFor="inputState">Moyen de transport</label>
+                        <select className="form-control">
+                            {this.state.moyenTransport.map(mt => {
+                                return (
+                                    <option>{mt.properties.type}</option>
+                                )
+                            })}
+                        </select>
+                    </div>
+                    <div className="form-group col-md-1">
+                        <label htmlFor="inputState">Poids</label>
+                        <select id="inputState" className="form-control">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
+                    </div>
+                </div>
+                <button className="btn btn-primary">Confirm identity</button>
             </div>
+
         )
     }
 
+    postPreference=()=>{
+
+    }
 }
 
 
