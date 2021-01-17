@@ -4,7 +4,7 @@ import AddPreferenceTransport from "./AddPreferenceTransport";
 class UserPreview extends Component{
 
     neo4j = require('neo4j-driver')
-    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "Oussama2"))
+    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "1234"))
     session = this.driver.session({database: "neo4j"});
 
     state = {
