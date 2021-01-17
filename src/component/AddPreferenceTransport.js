@@ -2,7 +2,15 @@ import {useState} from "react";
 
 class AddPreferenceTransport extends Component{
     state={
-        moyenTransport:[]
+        moyenTransport:[],
+        nomUsager:""
+    }
+
+    constructor(props) {
+        super();
+        this.setState({
+            nomUsager:props.nomUsager
+        })
     }
     // [moyen,setMoyen] = useState([]);
 
@@ -33,7 +41,7 @@ class AddPreferenceTransport extends Component{
     render(){
         return(
             <div>
-                <p>{props.nomUsager}</p>
+                <p>{this.state.nomUsager}</p>
                 <select>
                     {this.state.moyensTransport.map(mt=>{
                         return(
