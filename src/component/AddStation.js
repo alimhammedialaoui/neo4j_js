@@ -6,7 +6,6 @@ class AddStation extends Component{
     constructor(props) {
         super(props);
         this.state={
-            moyenTransport:[],
             moyenTransport:props.MoyenTransport,
             selectedMT:"",
             poids:0,
@@ -18,7 +17,7 @@ class AddStation extends Component{
     }
     getStations = () => {
         const neo4j = require('neo4j-driver')
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
+        const driver = neo4j.driver(this.props.link, neo4j.auth.basic(this.props.username, this.props.password));
         const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:Station) RETURN n as station`;
         session.run(query)
@@ -75,16 +74,14 @@ class AddStation extends Component{
                 <button className="btn btn-primary col-md-2" onClick={this.postStation}>Add Station</button>
                 <span className="col-md-2"></span>
                 <button className="btn btn-danger col-md-2">Cancel</button>
-            
-</div>
-
+            </div>
         )
     }
 
     
     postStation= async()=>{
         const neo4j = require('neo4j-driver')
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
+        const driver = neo4j.driver(this.props.link, neo4j.auth.basic(this.props.username, this.props.password));
         const session = driver.session({database: "neo4j"});
         console.log("heyy")
         try {

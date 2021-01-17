@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
-import Api from "../api/call"
-import FormMoyenDeTransport from "./FormMoyenDeTransport";
-import MoyenDeTransport from "./MoyenDeTransport";
 import AddStation from "./AddStation";
-
 
 class MoyenDeTransportPreview extends Component {
 
@@ -16,8 +12,6 @@ class MoyenDeTransportPreview extends Component {
             nom: "",
             selectedmoyen:{}
         }
-
-
     render() {
         return (
             <div>
@@ -63,8 +57,13 @@ class MoyenDeTransportPreview extends Component {
                     })}
                     </tbody>
                 </table>
-                {this.state.showPrefForm && <AddStation nomComplet={this.state.nom} MoyenSelected={this.state.selectedmoyen}/>} 
-               {/* {this.state.showPrefForm && <div> <hr/> <label>{this.state.nom}</label><AddStation nomComplet={this.state.nom}/></div>} */}
+                {this.state.showPrefForm &&
+                <AddStation
+                    nomComplet={this.state.nom}
+                    MoyenSelected={this.state.selectedmoyen}
+                    link={this.props.link}
+                    username={this.props.username}
+                    password={this.props.password}/>}
             </div>
             </div>
 
