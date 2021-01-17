@@ -74,8 +74,6 @@ class FormMoyenDeTransport extends Component {
                     <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={this.addMoyenDeTransportApi}>Add
                         Transport
                     </button>
-                    <button style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={()=> console.log(this.state)}>Click
-                    </button>
 
                 </div>
             );
