@@ -62,7 +62,7 @@ class AddPreferenceTransport extends Component{
                     <div className="form-group col-md-1">
                         <label htmlFor="inputState">Poids</label>
                         <select id="inputState" className="form-control" value={this.state.poids} onChange={ e=> this.setState({poids: e.target.value})}>
-                            <option value={0} selected={}>0</option>
+                            <option value={0}>0</option>
                             <option value={1}>1</option>
                             <option value={2}>2</option>
                         </select>
