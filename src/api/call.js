@@ -23,8 +23,8 @@ class Api {
                 }
             )
 
-            const singleRecord = result.records[0]
-            const node = singleRecord.get(0)
+            // const singleRecord = result.records[0]
+            // const node = singleRecord.get(0)
 
         } finally {
             await session.close()

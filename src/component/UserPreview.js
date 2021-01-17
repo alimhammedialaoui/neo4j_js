@@ -3,6 +3,10 @@ import AddPreferenceTransport from "./AddPreferenceTransport";
 
 class UserPreview extends Component{
 
+    neo4j = require('neo4j-driver')
+    driver = this.neo4j.driver("bolt://localhost:7687", this.neo4j.auth.basic("neo4j", "Oussama2"))
+    session = this.driver.session({database: "neo4j"});
+
     state = {
         usagers:[],
         showAddForm: false,
@@ -11,6 +15,7 @@ class UserPreview extends Component{
         nom: "",
         selectedusager:{}
     }
+
     render() {
         return(
             <div className="container">
@@ -67,28 +72,22 @@ class UserPreview extends Component{
     }
 
     getUsagers = () => {
-        const neo4j = require('neo4j-driver')
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"))
-        const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:Usager) return distinct n as usager`;
-        session.run(query)
+        this.session.run(query)
             .then((result) => {
                 result.records.forEach((record) => {
                     var us=this.state.usagers;
-                    // console.log(record.get('usager'));
                     us.push(record.get('usager'))
                     this.setState({
                         usagers:us
                     })
-                    // console.log(this.state.usagers)
                 });
-                session.close();
-                driver.close();
+                this.session.close();
+                this.driver.close();
             })
             .catch((error) => {
                 console.error(error);
             });
     }
-
 }
 export default UserPreview
