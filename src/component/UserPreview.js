@@ -19,22 +19,23 @@ class UserPreview extends Component{
                 <table className="table">
                     <thead className="thead-dark">
                     <tr>
-                        <th>Nom complet</th>
-                        <th>Handicap</th>
-                        <th>Fonction</th>
-                        <th>Date de naissance</th>
-                        <th>Action</th>
+                        <th className="text-center">Nom complet</th>
+                        <th className="text-center">CIN</th>
+                        <th className="text-center">Handicap</th>
+                        <th className="text-center">Date de naissance</th>
+                        <th className="text-center">Fonction</th>
+                        <th className="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     {this.state.usagers.map(usager =>{
                         return (<tr>
-                            <td className="align-middle">{usager.properties.nomComplet}</td>
-                            <td className="align-middle">{usager.properties.handicap}</td>
-                            {/*<td className="align-middle">{usager.properties.dateDeNaissance}</td>*/}
-                            <td className="align-middle">{usager.properties.fonction}</td>
-                            <td className="align-middle">{usager.properties.fonction}</td>
-                            <td>
+                            <td className="align-middle text-center">{usager.properties.nomComplet}</td>
+                            <td className="align-middle text-center">{usager.properties.cin}</td>
+                            <td className="align-middle text-center">{usager.properties.handicap}</td>
+                            <td className="align-middle text-center">{usager.properties.dateDeNaissance}</td>
+                            <td className="align-middle text-center">{usager.properties.fonction}</td>
+                            <td className="text-center">
                                 <button className="btn btn-info">Update information</button>
                                 |
                                 <button className="btn btn-info" onClick={()=> {
@@ -76,12 +77,12 @@ class UserPreview extends Component{
             .then((result) => {
                 result.records.forEach((record) => {
                     var us=this.state.usagers;
-                    console.log(record.get('usager'));
+                    // console.log(record.get('usager'));
                     us.push(record.get('usager'))
                     this.setState({
                         usagers:us
                     })
-                    console.log(this.state.usagers)
+                    // console.log(this.state.usagers)
                 });
                 session.close();
                 driver.close();
