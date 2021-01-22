@@ -1,0 +1,59 @@
+Index: .eslintcache
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[{\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/index.js\":\"1\",\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/reportWebVitals.js\":\"2\",\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/App.js\":\"3\",\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/screens/Home.js\":\"4\",\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/api/call.js\":\"5\"},{\"size\":500,\"mtime\":1610818487519,\"results\":\"6\",\"hashOfConfig\":\"7\"},{\"size\":362,\"mtime\":1610818487523,\"results\":\"8\",\"hashOfConfig\":\"7\"},{\"size\":194,\"mtime\":1610818487511,\"results\":\"9\",\"hashOfConfig\":\"7\"},{\"size\":544,\"mtime\":1610820761197,\"results\":\"10\",\"hashOfConfig\":\"7\"},{\"size\":1608,\"mtime\":1610820826643,\"results\":\"11\",\"hashOfConfig\":\"7\"},{\"filePath\":\"12\",\"messages\":\"13\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},\"1o96wki\",{\"filePath\":\"14\",\"messages\":\"15\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},{\"filePath\":\"16\",\"messages\":\"17\",\"errorCount\":0,\"warningCount\":1,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"source\":null},{\"filePath\":\"18\",\"messages\":\"19\",\"errorCount\":0,\"warningCount\":1,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"source\":null},{\"filePath\":\"20\",\"messages\":\"21\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/index.js\",[],\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/reportWebVitals.js\",[],\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/App.js\",[\"22\"],\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/screens/Home.js\",[\"23\"],\"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/api/call.js\",[],{\"ruleId\":\"24\",\"severity\":1,\"message\":\"25\",\"line\":1,\"column\":8,\"nodeType\":\"26\",\"messageId\":\"27\",\"endLine\":1,\"endColumn\":12},{\"ruleId\":\"28\",\"severity\":1,\"message\":\"29\",\"line\":5,\"column\":5,\"nodeType\":\"30\",\"messageId\":\"31\",\"endLine\":7,\"endColumn\":6},\"no-unused-vars\",\"'logo' is defined but never used.\",\"Identifier\",\"unusedVar\",\"no-useless-constructor\",\"Useless constructor.\",\"MethodDefinition\",\"noUselessConstructor\"]
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.eslintcache b/.eslintcache
+--- a/.eslintcache	
++++ b/.eslintcache	
+@@ -1,1 +1,1 @@
+-[{"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/index.js":"1","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/reportWebVitals.js":"2","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/App.js":"3","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/screens/Home.js":"4","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/api/call.js":"5"},{"size":500,"mtime":1610818487519,"results":"6","hashOfConfig":"7"},{"size":362,"mtime":1610818487523,"results":"8","hashOfConfig":"7"},{"size":194,"mtime":1610818487511,"results":"9","hashOfConfig":"7"},{"size":544,"mtime":1610820761197,"results":"10","hashOfConfig":"7"},{"size":1608,"mtime":1610820826643,"results":"11","hashOfConfig":"7"},{"filePath":"12","messages":"13","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"1o96wki",{"filePath":"14","messages":"15","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"16","messages":"17","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"18","messages":"19","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"20","messages":"21","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/index.js",[],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/reportWebVitals.js",[],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/App.js",["22"],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/screens/Home.js",["23"],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/api/call.js",[],{"ruleId":"24","severity":1,"message":"25","line":1,"column":8,"nodeType":"26","messageId":"27","endLine":1,"endColumn":12},{"ruleId":"28","severity":1,"message":"29","line":5,"column":5,"nodeType":"30","messageId":"31","endLine":7,"endColumn":6},"no-unused-vars","'logo' is defined but never used.","Identifier","unusedVar","no-useless-constructor","Useless constructor.","MethodDefinition","noUselessConstructor"]
+\ No newline at end of file
++[{"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/index.js":"1","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/reportWebVitals.js":"2","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/App.js":"3","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/screens/Home.js":"4","/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/api/call.js":"5"},{"size":500,"mtime":1610818487519,"results":"6","hashOfConfig":"7"},{"size":362,"mtime":1610818487523,"results":"8","hashOfConfig":"7"},{"size":234,"mtime":1610822590058,"results":"9","hashOfConfig":"7"},{"size":516,"mtime":1610822609264,"results":"10","hashOfConfig":"7"},{"size":1328,"mtime":1610822333015,"results":"11","hashOfConfig":"7"},{"filePath":"12","messages":"13","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"14"},"1o96wki",{"filePath":"15","messages":"16","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"14"},{"filePath":"17","messages":"18","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"19","messages":"20","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"21","messages":"22","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"14"},"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/index.js",[],["23","24"],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/reportWebVitals.js",[],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/App.js",["25"],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/screens/Home.js",["26"],"/Users/oussiw/WebStProjects/Khaoula/neo4j_js/src/api/call.js",[],{"ruleId":"27","replacedBy":"28"},{"ruleId":"29","replacedBy":"30"},{"ruleId":"31","severity":1,"message":"32","line":1,"column":8,"nodeType":"33","messageId":"34","endLine":1,"endColumn":12},{"ruleId":"35","severity":1,"message":"36","line":5,"column":5,"nodeType":"37","messageId":"38","endLine":7,"endColumn":6},"no-native-reassign",["39"],"no-negated-in-lhs",["40"],"no-unused-vars","'logo' is defined but never used.","Identifier","unusedVar","no-useless-constructor","Useless constructor.","MethodDefinition","noUselessConstructor","no-global-assign","no-unsafe-negation"]
+\ No newline at end of file
+Index: src/screens/Home.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from 'react';\nimport Api from \"../api/call\"\nclass Home extends Component {\n\n    constructor(props) {\n        super(props);\n    }\n\n    callApi = ()=>{\n        return Api.call();\n    }\n\n    getApi = ()=>{\n        return Api.getUsagers();\n    }\n\n\n    render() {\n        return (\n            <div>\n                <p>Test</p>\n                <button onClick={this.callApi} >Click</button><br/>\n                <button onClick={this.getApi} >Get usagers</button>\n            </div>\n        );\n    }\n}\n\nexport default Home;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screens/Home.js b/src/screens/Home.js
+--- a/src/screens/Home.js	
++++ b/src/screens/Home.js	
+@@ -18,7 +18,6 @@
+     render() {
+         return (
+             <div>
+-                <p>Test</p>
+                 <button onClick={this.callApi} >Click</button><br/>
+                 <button onClick={this.getApi} >Get usagers</button>
+             </div>
+Index: src/api/call.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const neo4j = require('neo4j-driver')\n\nconst driver = neo4j.driver(\"neo4j://localhost:7687\", neo4j.auth.basic(\"neo4j\", \"Oussama2\"))\n// const session = driver.session()\nconst session = driver.session({database:\"neo4j\"});\nconst personName = 'Alice'\n\nclass Api {\n    call = async () => {\n        console.log(\"Hello World\")\n        try {\n            const result = await session.run(\n                'CREATE (a:Person {name: $name}) RETURN a',\n                { name: personName }\n            )\n\n            const singleRecord = result.records[0]\n            const node = singleRecord.get(0)\n\n            console.log(node.properties.name)\n        } finally {\n            await session.close()\n        }\n\n// on application exit:\n        await driver.close()\n    }\n\n    getUsagers=()=>{\n        // const neo4j = require('neo4j-driver');\n        // const driver = neo4j.driver('bolt://localhost:7687',\n        //     neo4j.auth.basic('neo4j', 'Oussama2'),\n        //     {/* encrypted: 'ENCRYPTION_OFF' */});\n\n        const query = `MATCH (n:Usager)-[r]->(m) return distinct n.nomComplet as usager`;\n\n        // const params = {\"category\": \"Dairy Products\"};\n\n        // const session = driver.session({database:\"neo4j\"});\n\n        session.run(query)\n            .then((result) => {\n                result.records.forEach((record) => {\n                    console.log(record.get('usager'));\n                });\n                session.close();\n                driver.close();\n            })\n            .catch((error) => {\n                console.error(error);\n            });\n\n    }\n\n}\n\nexport default new Api();\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/api/call.js b/src/api/call.js
+--- a/src/api/call.js	
++++ b/src/api/call.js	
+@@ -27,15 +27,9 @@
+     }
+ 
+     getUsagers=()=>{
+-        // const neo4j = require('neo4j-driver');
+-        // const driver = neo4j.driver('bolt://localhost:7687',
+-        //     neo4j.auth.basic('neo4j', 'Oussama2'),
+-        //     {/* encrypted: 'ENCRYPTION_OFF' */});
+ 
+         const query = `MATCH (n:Usager)-[r]->(m) return distinct n.nomComplet as usager`;
+ 
+-        // const params = {"category": "Dairy Products"};
+-
+         // const session = driver.session({database:"neo4j"});
+ 
+         session.run(query)
