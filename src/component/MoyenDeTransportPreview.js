@@ -29,14 +29,14 @@ class MoyenDeTransportPreview extends Component {
                     <tbody>
                     {this.state.moyens.map(moyen =>{
                         return (<tr>
-                            <td className="align-middle">{moyen.properties.numero}</td>
+                            <td className="align-middle">{moyen.properties.no}</td>
                             <td className="align-middle">{moyen.properties.constructeur}</td>
                             {/*<td className="align-middle">{usager.properties.dateDeNaissance}</td>*/}
-                            <td className="align-middle">{moyen.properties.anneemiseenservice}</td>
+                            <td className="align-middle">{moyen.properties.anneeMiseEnService}</td>
                             <td className="align-middle">{moyen.properties.type}</td>
                             <td>
-                              
-                                
+
+
                                 <button className="btn btn-info" onClick={()=> {
                                     if(this.state.showPrefForm===true){
                                         this.setState({

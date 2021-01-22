@@ -1,7 +1,6 @@
-
 const neo4j = require('neo4j-driver')
 
-const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"))
+const driver = neo4j.driver("neo4j://localhost:7687", neo4j.auth.basic("neo4j", "1923"))
 // const session = driver.session()
 const session = driver.session({database: "neo4j"});
 const personName = 'Adnane'
@@ -9,17 +8,17 @@ const personName = 'Adnane'
 class Api {
 
 
-
     addUser = async (usager) => {
         console.log("Usager")
         try {
             const result = await session.run(
-                'CREATE (a:Usager {nomComplet:$nomComplet,dateDeNaissance: $dateDeNaissance,handicap: $handicap,fonction: $fonction}) RETURN a',
+                'CREATE (a:Usager {nomComplet:$nomComplet,dateDeNaissance: $dateDeNaissance,cin:$cin,handicap: $handicap,fonction: $fonction}) RETURN a',
                 {
-                    nomComplet:usager.nom,
+                    nomComplet: usager.nom,
                     dateDeNaissance: usager.dateDeNaissance,
                     handicap: usager.handicap,
-                    fonction: usager.fonction
+                    fonction: usager.fonction,
+                    cin: usager.cin
                 }
             )
 
@@ -33,10 +32,6 @@ class Api {
 // on application exit:
         await driver.close()
     }
-
-
-
-    
 
 
     addMoyenDeTransport = async (moyenDeTransport) => {

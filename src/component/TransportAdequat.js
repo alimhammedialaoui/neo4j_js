@@ -12,7 +12,7 @@ class TransportAdequat extends Component{
 
     getStations=()=>{
         const neo4j = require('neo4j-driver');
-        const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "Oussama2"));
+        const driver = neo4j.driver(this.props.link, neo4j.auth.basic("neo4j", this.props.password));
         const session = driver.session({database: "neo4j"});
         const query = `MATCH (n:Station) return distinct n as stations`;
         session.run(query)

@@ -29,9 +29,9 @@ class FormMoyenDeTransport extends Component {
         return Api.addMoyenDeTransport(moyenDeTransport);
     }
 
-    styles ={
-        input:{
-            borderRadius:5
+    styles = {
+        input: {
+            borderRadius: 5
         }
     }
 
@@ -71,7 +71,8 @@ class FormMoyenDeTransport extends Component {
                                onChange={this.changeHandler} type={"text"}/>
                     </tr>
                 </table>
-                <button className="btn btn-info" style={{marginInline: 100, marginTop: 20, marginBottom: 20}} onClick={this.addMoyenDeTransportApi}>Add
+                <button className="btn btn-info" style={{marginInline: 100, marginTop: 20, marginBottom: 20}}
+                        onClick={this.addMoyenDeTransportApi}>Add
                     Transport
                 </button>
 

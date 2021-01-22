@@ -8,7 +8,8 @@ class FormUser extends Component {
             nom:"",
             dateDeNaissance: "",
             handicap: "N",
-            fonction: ""
+            fonction: "",
+            cin:""
         }
     }
 
@@ -23,7 +24,8 @@ class FormUser extends Component {
             nom:this.state.nom,
             dateDeNaissance: this.state.dateDeNaissance,
             handicap: this.state.handicap,
-            fonction: this.state.fonction
+            fonction: this.state.fonction,
+            cin:this.state.cin
         }
         return Api.addUser(usager);
     }
@@ -47,11 +49,19 @@ class FormUser extends Component {
                     </tr>
                     <br/>
                     <tr>
-                        <td>Age</td>
+                        <td>Date de naissance</td>
                         <input className="form form-control" style={this.styles.input}
                             name="dateDeNaissance"
                             value={this.dateDeNaissance}
                             onChange={this.changeHandler}  type={"date"}/>
+                    </tr>
+                    <br/>
+                    <tr>
+                        <td>Cin</td>
+                        <input className="form form-control" style={this.styles.input}
+                               name="cin"
+                               value={this.cin}
+                               onChange={this.changeHandler} type={"text"}/>
                     </tr>
                     <br/>
                     <tr>

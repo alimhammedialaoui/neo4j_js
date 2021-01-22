@@ -6,10 +6,11 @@ class ShortestPath extends Component {
         super(props);
         this.state = {
             stations: [],
-            selectedDeparture: "",
-            selectedArrival: "",
+            selectedDeparture: "Station de correspondance Anoual Tramway",
+            selectedArrival: "Station de correspondance Anoual Tramway",
             shortestPath: [],
-            transitShown: false
+            transitShown: false,
+            firstTime : true
         }
     }
 
@@ -25,7 +26,7 @@ class ShortestPath extends Component {
                     <div className="form-group col-md-4">
                         <label>Station de départ</label>
                         <select className="form-control" value={this.state.selectedDeparture}
-                                onChange={e => this.setState({selectedDeparture: e.target.value})}>
+                                onChange={e => this.setState({selectedDeparture: e.target.value})} >
                             {this.state.stations.map(departure => {
 
                                 return (
@@ -55,7 +56,7 @@ class ShortestPath extends Component {
                     </div>
                 </div>
                 {console.log("Test " + this.state.shortestPath)}
-                {this.state.transitShown &&
+                {(this.state.transitShown &&  this.state.shortestPath.length!==0) &&
                 <>
                     <table className="table">
                         <thead className="thead-dark">
@@ -67,7 +68,7 @@ class ShortestPath extends Component {
                         {this.state.shortestPath.map((station) => {
                             return (
                                 <tr>
-                                    <td className="align-middle text-center">{station.properties.nom}</td>
+                                    <td className="align-middle text-center" key={station.properties.nom}>{station.properties.nom}</td>
                                 </tr>
                             )
                         })}
@@ -75,12 +76,13 @@ class ShortestPath extends Component {
                     </table>
                 </>
                 }
+                {!this.state.firstTime &&  this.state.shortestPath.length===0 && <div className="text-center alert alert-warning">Aucun résultat</div>}
             </div>
         );
     }
 
     getTransit = () => {
-        this.setState({transitShown: true})
+        this.setState({transitShown: true,firstTime:false})
         return this.getShortestPath()
     }
 
@@ -120,17 +122,21 @@ class ShortestPath extends Component {
                         order by distance
                         LIMIT 1`;
         var path = this.state.shortestPath;
-        //console.log(this.state)
+        console.log(this.state)
         session.run(query, {depart: this.state.selectedDeparture, arrive: this.state.selectedArrival})
             .then((result) => {
-                result.records.forEach((record) => {
-                    console.log("Chemin : " + record.get('chemin'));
-                    path.push(record.get('chemin'))
-                    console.log(record.get('chemin'))
-                    this.setState({
-                        shortestPath: record.get('chemin')
-                    })
-                });
+                if(result.records.length===0){
+                    this.setState({shortestPath: []})
+                }else{
+                    result.records.forEach((record) => {
+                        console.log("Chemin : " + record.get('chemin'));
+                        path.push(record.get('chemin'))
+                        console.log(record.get('chemin'))
+                        this.setState({
+                            shortestPath: record.get('chemin')
+                        })
+                    });
+                }
 
                 session.close();
                 driver.close();
