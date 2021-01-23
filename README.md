@@ -10,7 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
   # Secend step
      
-  You need to change the credentials of your neo4j driver located in each file below :
+  You need to change the credentials of your neo4j driver located in each of the files below :
     
    [./api/call.js](https://github.com/alimhammedialaoui/neo4j_js/blob/master/src/api/call.js)
           
