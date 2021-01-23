@@ -6,19 +6,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
   # First step
   
-    First you need to create the graph by running the commands found [here](https://github.com/alimhammedialaoui/neo4j_js/tree/master/neo4j_code)
+  First you need to create the graph by running the commands found [here](https://github.com/alimhammedialaoui/neo4j_js/tree/master/neo4j_code)
 
   # Secend step
      
-    You need to change the credentials of your neo4j driver located in each file below :
+  You need to change the credentials of your neo4j driver located in each file below :
     
-          [./api/call.js](https://github.com/alimhammedialaoui/neo4j_js/blob/master/src/api/call.js)
+   [./api/call.js](https://github.com/alimhammedialaoui/neo4j_js/blob/master/src/api/call.js)
           
-          [./src/App.js](https://github.com/alimhammedialaoui/neo4j_js/blob/master/src/App.js)
+   [./src/App.js](https://github.com/alimhammedialaoui/neo4j_js/blob/master/src/App.js)
           
   # Third step
     
-     Run the below commands in the root directory of your project in the terminal:
+  Run the below commands in the root directory of your project in the terminal:
       
         npm install
         
@@ -26,6 +26,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
         
   # Final step
   
-      Navigate to [http://localhost:3000](http://localhost:3000)
+   Navigate to [http://localhost:3000](http://localhost:3000)
           
          
